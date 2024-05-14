@@ -1,0 +1,76 @@
+import { Injectable } from '@angular/core';
+import { GLOBAL } from './GLOBAL';
+import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ProductoService {
+  public url=GLOBAL.url
+  constructor(
+    private _http:HttpClient
+  ) { }
+
+  createCategoria(data:any, token:any):Observable<any>{
+    const headers=new HttpHeaders({'Content-type':'application/json','Autorization':token})
+    return this._http.post(this.url+'/createCategoria',data,{headers:headers})
+  }
+
+  getCategorias(clasificacion:any, token:any):Observable<any>{
+    const headers=new HttpHeaders({'Content-type':'application/json','Autorization':token})
+    return this._http.get(this.url+'/getCategorias/'+clasificacion,{headers:headers})
+  }
+
+  cambioEstadoCategoria(id:any,data:any,token:any):Observable<any>{
+    let headers= new HttpHeaders({'Content-Type':'application/json','Autorization':token})
+    return this._http.put(this.url+'/cambioEstadoCategoria/'+id,data,{headers:headers})
+  }
+
+  getCategoria(id:any,token:any):Observable<any>{
+    let headers= new HttpHeaders({'Content-Type':'application/json','Autorization':token})
+    return this._http.get(this.url+'/getCategoria/'+id,{headers:headers})
+  }
+
+  updateCategoria(id:any,data:any,token:any):Observable<any>{
+    let headers= new HttpHeaders({'Content-Type':'application/json','Autorization':token})
+    return this._http.put(this.url+'/updateCategoria/'+id,data,{headers:headers})
+  }
+
+  createProducto(data:any,token:any):Observable<any>{
+    const headers=new HttpHeaders({'Autorization':token})
+    const formData=new FormData()
+    formData.append('titulo',data.titulo)
+    formData.append('descripcion',data.descripcion)
+    formData.append('categoria',data.categoria)
+    formData.append('subcategorias',data.subcategorias)
+    formData.append('clasificacion',data.clasificacion)
+
+    formData.append('etiquetas',JSON.stringify(data.etiquetas))
+    formData.append('variaciones',JSON.stringify(data.variaciones))
+
+    if(data.galeria.length >=1){
+      formData.append('galeria',JSON.stringify(data.galeria))
+      data.galeria.forEach((element:any) => {
+        formData.append('files[]',element.imagen)
+      })
+    }
+
+    return this._http.post(this.url+'/createProducto',formData,{headers:headers})
+  }
+
+  getProductos(filtro:any,token:any):Observable<any>{
+    const headers=new HttpHeaders({'Content-type':'application/json','Autorization':token})
+    return this._http.get(this.url+'/getProductos/'+filtro,{headers:headers})
+  }
+
+  cambioEstadoProducto(id:any,data:any,token:any):Observable<any>{
+    let headers= new HttpHeaders({'Content-Type':'application/json','Autorization':token})
+    return this._http.put(this.url+'/cambioEstadoProducto/'+id,data,{headers:headers})
+  }
+
+  getProducto(id:any,token:any):Observable<any>{
+    let headers= new HttpHeaders({'Content-Type':'application/json','Autorization':token})
+    return this._http.get(this.url+'/getProducto/'+id,{headers:headers})
+  }
+}
