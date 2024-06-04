@@ -212,11 +212,14 @@
                                 <table class="table align-middle table-row-dashed fs-6 gy-5" style="margin-bottom: 0px !important;">
                                     <!--begin::Table body-->
                                     <tbody *ngIf="!loadData"  class="fw-semibold text-gray-600" >
-                                        <tr *ngFor="let item of productos | slice:(page-1) * pageSize: (page-1) * pageSize+pageSize  ">
+                                        <tr *ngFor="let item of productos | slice:(page-1) * pageSize: (page-1) * pageSize+pageSize ; let idx=index ">
                                             <!--begin::Category=-->
                                             <td class="min-w-200px">
                                                 <div class="d-flex">
                                                     <!--begin::Thumbnail-->
+                                                    <a class="symbol symbol-50px me-3">
+                                                        <div id="qrcode-{{idx}}"></div>
+                                                    </a>
                                                     <a class="symbol symbol-50px">
                                                         <span class="symbol-label" [style.background-image]="'url(' + url + '/getProductoPortada/' + item.producto.portada + ')'"></span>
                                                     </a>

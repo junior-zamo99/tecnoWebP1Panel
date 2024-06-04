@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { GLOBAL } from '../../../services/GLOBAL';
 
 declare var $: any;
+declare var QRCode:any;
 @Component({
   selector: 'app-index-producto',
   templateUrl: './index-producto.component.html',
@@ -55,6 +56,18 @@ export class IndexProductoComponent {
           console.log(response)
           this.productos=response.data
           this.constProductos=this.productos
+          this.productos.forEach((element,idx)=>{
+            setTimeout(() => {
+                new QRCode("qrcode-"+idx, {
+                text: GLOBAL.urlTienda+"/producto/"+element.producto.slug,
+                width: 50,
+                height: 50,
+                colorDark : "#000000",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
+            });
+          },50)
+        })
           this.loadData=false
         },
         error=>{

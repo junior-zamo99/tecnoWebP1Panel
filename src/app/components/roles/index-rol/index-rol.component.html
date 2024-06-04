@@ -23,7 +23,7 @@
                     <span class="h-20px border-gray-400 border-start ms-3 mx-2"></span>
                     <ol class="breadcrumb text-muted fs-6 fw-semibold">
                       
-                      <li class="breadcrumb-item pe-3 ">Usuario</li>
+                      <li class="breadcrumb-item pe-3 ">Roles</li>
                     </ol>
                   </h1>
                 <!--end::Title-->
@@ -52,12 +52,12 @@
                         <div class="card-header border-0 pt-5">
                             <!--begin::Card title-->
                             <h3 class="card-title align-items-start flex-column">
-                                <span class="card-label fs-3 mb-1 fw-700">Usuarios</span>
+                                <span class="card-label fs-3 mb-1 fw-700">Roles</span>
                                 <span class="text-muted mt-1 fw-semibold fs-7">Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda, aspernatur.</span>
                             </h3>
                             <div class="card-toolbar">
-                                <a [routerLink]="['/colaborador/create']"  class="btn btn-dark">
-                                    Nuevo usuario
+                                <a [routerLink]="['/rol/create']"  class="btn btn-dark">
+                                    Nuevo Rol
                                 </a>
                             </div>
                             
@@ -97,38 +97,32 @@
                                     <!--begin::Table body-->
                                     <tbody *ngIf="!load_data" >
                                         
-                                       <ng-container *ngFor="let item of usuarios |slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                                       <ng-container *ngFor="let item of roles |slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
                                                     <!--begin::Avatar-->
                                                     <div class="symbol symbol-45px me-5">
                                                         <span class="symbol-label fw-bold bg-light-danger text-danger">
-                                                            {{item.nombres.substr(0,1)}}
+                                                            {{item.nombre.charAt(0)}}
                                                         </span>
                                                     </div>
                                                     <!--end::Avatar-->
                                                     <!--begin::Name-->
                                                     <div class="d-flex justify-content-start flex-column">
                                                         <a class="text-dark fw-bold text-hover-primary mb-1 fs-6">
-                                                            {{item.nombres.split(' ')[0]}}
-                                                            {{item.apellidos.split(' ')[0]}}   
+                                                            {{item.nombre}}
+                                                            
                                                         </a>
-                                                        <a class="text-hover-primary fw-semibold d-block fs-7">
-                                                            <span class="svg-icon svg-icon-5 svg-icon-success ms-n1"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M9.89557 13.4982L7.79487 11.2651C7.26967 10.7068 6.38251 10.7068 5.85731 11.2651C5.37559 11.7772 5.37559 12.5757 5.85731 13.0878L9.74989 17.2257C10.1448 17.6455 10.8118 17.6455 11.2066 17.2257L18.1427 9.85252C18.6244 9.34044 18.6244 8.54191 18.1427 8.02984C17.6175 7.47154 16.7303 7.47154 16.2051 8.02984L11.061 13.4982C10.7451 13.834 10.2115 13.834 9.89557 13.4982Z" fill="currentColor"/>
-                                                                </svg>
-                                                            </span>
-                                                            {{item.email}}
-                                                        </a>
+                                                      
                                                     </div>
                                                     <!--end::Name-->
                                                 </div>
                                             </td>
-                                            <td class="text-end">
+                                           <!-- <td class="text-end">
                                                 <span class="fw-semibold text-gray-400 d-block fs-8">Rol</span>
                                                 <a class="text-dark fw-bold text-hover-primary d-block mb-1 fs-6">
-                                                   {{item.rol.nombre}}
+                                                   {{item.rol}}
                                                 </a>
                                             </td>
                                             <td class="text-end">
@@ -138,10 +132,17 @@
                                                 <span *ngIf="item.estado">Activado</span>
                                                 <span *ngIf="!item.estado">Desactivado</span>       
                                             </span>
+                                            </td>-->
+                                            <td>
+                                                <span class="fw-semibold text-gray-400 d-block fs-8">Funcionalidades</span>
+                                                <select name="" id="" class="form-select form-select-solid mb-2" >
+                                                    <option selected disabled value="">Funcionalidades</option>
+                                                   <option  disabled *ngFor="let funcionalidades of item.funcionalidades" value=""> {{funcionalidades.nombre}}</option>
+                                                </select>
                                             </td>
                                             <td class="text-end">
                                                 <div class="btn-group">
-                                                    <a class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" data-bs-toggle="modal" [attr.data-bs-target]="'#state-'+item._id">
+                                                     <!--<a class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" data-bs-toggle="modal" [attr.data-bs-target]="'#state-'+item._id">
                                                         
                                                         <span *ngIf="item.estado" class="svg-icon svg-icon-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                             <path opacity="0.3" d="M6 19.7C5.7 19.7 5.5 19.6 5.3 19.4C4.9 19 4.9 18.4 5.3 18L18 5.3C18.4 4.9 19 4.9 19.4 5.3C19.8 5.7 19.8 6.29999 19.4 6.69999L6.7 19.4C6.5 19.6 6.3 19.7 6 19.7Z" fill="currentColor"/>
@@ -154,9 +155,9 @@
                                                             <path d="M10 18C9.7 18 9.5 17.9 9.3 17.7C8.9 17.3 8.9 16.7 9.3 16.3L20.3 5.3C20.7 4.9 21.3 4.9 21.7 5.3C22.1 5.7 22.1 6.30002 21.7 6.70002L10.7 17.7C10.5 17.9 10.3 18 10 18Z" fill="currentColor"/>
                                                             </svg>
                                                         </span>
-                                                            <!--end::Svg Icon-->
-                                                    </a>
-                                                    <a [routerLink]="['/colaborador/edit',item._id]" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm ">
+                                                            
+                                                    </a>-->
+                                                    <a [routerLink]="['/rol/edit',item._id]" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm ">
                                                         <!--begin::Svg Icon | path: icons/duotune/art/art005.svg-->
                                                         <span class="svg-icon svg-icon-3">
                                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -169,7 +170,7 @@
                                                 
                                                 </div>
                     
-                                                <div id="state-{{item._id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                               <!-- <div id="state-{{item._id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -181,13 +182,13 @@
                                                                 
                                                                 </h3>
                                                                 <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
-                                                                    <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/metronic/releases/2022-07-14-092914/core/html/src/media/icons/duotune/arrows/arr088.svg-->
+                                                                   
                                                                     <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                         <rect opacity="0.5" x="7.05025" y="15.5356" width="12" height="2" rx="1" transform="rotate(-45 7.05025 15.5356)" fill="currentColor"/>
                                                                         <rect x="8.46447" y="7.05029" width="12" height="2" rx="1" transform="rotate(45 8.46447 7.05029)" fill="currentColor"/>
                                                                         </svg>
                                                                     </span>
-                                                                        <!--end::Svg Icon-->
+                                                                       
                                                                 </div>
                                                             </div>
                                                             <div class="modal-body">
@@ -220,7 +221,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div> 
+                                                </div> -->
                                                 
                                             </td>
                                         </tr>
@@ -243,7 +244,7 @@
                             
                         </div>
                         <div class="card-footer">
-                            <ngb-pagination [collectionSize]="usuarios.length" [(page)]="page" [pageSize]="pageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" />
+                            <ngb-pagination [collectionSize]="roles.length" [(page)]="page" [pageSize]="pageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" />
                         </div>
                     </div>
               

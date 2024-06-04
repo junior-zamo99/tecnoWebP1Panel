@@ -27,15 +27,19 @@ export class EditProductoComponent {
   };
   public imagen: any = undefined;
   public tituloImagen = '';
-  public imagenStr: any = '';
+ 
   public variaciones: Array<any> = [];
   public galeria: Array<any> = [];
   public etiquetas: Array<any> = [];
   public categorias: Array<any> = [];
   public subcategorias: Array<any> = [];
   public btnLoading = false
-  
+  public loadVariaciones = true
   public id=''
+  public url=GLOBAL.url
+
+  public btn_delete_load=false
+  public btn_delete_imagen=false
 
   constructor(
     private _productoService: ProductoService,
@@ -47,15 +51,83 @@ export class EditProductoComponent {
     this._route.params.subscribe(params => {
       this.id = params['id'];
       this.initData();
+      this.initVariaciones();
+      this.initGaleria()
+
+      setTimeout(() => {
+        $('#colorpicker').spectrum({
+          color: '#ccc',
+        });
+      }, 50);
     
     });
+  }
+
+  initTagify() {
+    setTimeout(() => {
+      const input = document.querySelector('#kt_tagify');
+      this.tagify = new Tagify(input, {
+        maxTags: 10,
+        dropdown: {
+          classname: 'tagify_inline_suggestions',
+          maxItems: 5,
+          enabled: 0,
+          closeOnSelect: false,
+        },
+      });
+    }, 150);
+  }
+  
+  initVariaciones(){
+    this.loadVariaciones = true
+    this._productoService.getVariacionesProducto(this.id,this.token).subscribe(
+      response=>{
+        console.log(response);
+        this.loadVariaciones = false
+        this.variaciones = response.data
+      }
+    )
+  }
+
+  initGaleria(){
+    this.loadVariaciones = true
+    this._productoService.getGaleriaProducto(this.id,this.token).subscribe(
+      response=>{
+        console.log(response);
+        this.loadVariaciones = false
+        this.galeria = response.data
+      }
+    )
   }
 
   initData(){
     this._productoService.getProducto(this.id,this.token).subscribe(
       response=>{
         this.producto=response.data;
-        console.log(this.producto);
+        setTimeout(() => {
+          const input = document.querySelector('#kt_tagify');
+          this.tagify = new Tagify(input, {
+            maxTags: 10,
+            dropdown: {
+              classname: 'tagify_inline_suggestions',
+              maxItems: 5,
+              enabled: 0,
+              closeOnSelect: false,
+            },
+          });
+          this.tagify.addTags(this.producto.labels);
+        }, 150);
+        this._productoService.getCategorias(this.producto.clasificacion,this.token).subscribe(
+          response => {
+            if(response.data !=undefined){
+              this.categorias = response.data;
+              console.log(this.categorias);
+              this.setCategoria();
+              
+            }
+          }
+        )
+        
       })
 
   }
@@ -64,26 +136,21 @@ export class EditProductoComponent {
     this.active = value;
   }
   setClasificacion(){
-    console.log(this.producto.clasificacion);
     this._productoService.getCategorias(this.producto.clasificacion,this.token).subscribe(
       response => {
         if(response.data !=undefined){
           this.categorias = response.data;
-          console.log(this.categorias);
-
+          
         }
-      },
-      error => {
-        console.log(error);
       }
     )
   }
 
   setCategoria(){
+    console.log(this.categorias);
+    console.log(this.producto.categoria);
     const categoria=this.categorias.find(item=>item._id==this.producto.categoria);
-
     this.subcategorias = categoria.subcategorias;
-    console.log(this.subcategorias);
   }
 
   add_variacion() {
@@ -96,12 +163,20 @@ export class EditProductoComponent {
     } else if (!this.variacion.color) {
       toastr.error('Seleccione un color');
     } else {
-      this.variaciones.push(this.variacion);
-      this.variacion = {
-        color: '',
-        talla: '',
-      };
-      console.log(this.variaciones);
+
+      this.variacion.producto=this.id;
+      this._productoService.addVariacion(this.variacion,this.token).subscribe(
+        response=>{
+          console.log(response);
+          if(response.data){
+            toastr.success('Variacion agregada correctamente');
+            this.initVariaciones();
+          }
+        },
+        error=>{
+          toastr.error('Error al agregar la variacion');
+        }
+      )
     }
   }
 
@@ -122,14 +197,10 @@ export class EditProductoComponent {
         file.type.includes('image/gif')
       ) {
         if (file.size <= 2097152) {
-          const reader = new FileReader();
-          reader.readAsDataURL(file);
-          reader.onload = () => {
-            console.log(reader.result);
-            this.imagenStr = reader.result;
-          };
+          
           this.imagen = file;
           this.tituloImagen = file.name;
+          console.log(this.imagen);
         } else {
           toastr.error('El tamaño de la imagen no puede ser mayor a 2MB');
           this.imagen = undefined;
@@ -153,19 +224,112 @@ export class EditProductoComponent {
     } else if (this.tituloImagen == '') {
       toastr.error('Ingrese un titulo para la imagen');
     } else {
-      this.galeria.push({
-        imagen: this.imagen,
-        titulo: this.tituloImagen,
-        str: this.imagenStr,
-      });
-      this.imagen = undefined;
-      this.tituloImagen = '';
-      this.imagenStr = '';
-      $('#fileInput').val('');
+      let data={
+        imagen:this.imagen,
+        titulo:this.tituloImagen,
+        producto:this.id
+      }
+
+      this._productoService.AddImagenProducto(data,this.token).subscribe(
+        response=>{
+          console.log(response);
+        if(response.data !=undefined){
+            toastr.success('Imagen agregada correctamente');
+             this.imagen = undefined;
+          this.tituloImagen = '';
+           $('#fileInput').val('');
+            this.initGaleria();
+          }else{
+            toastr.error('Error al agregar la imagen');
+          }
+         
+        },
+        error=>{
+          toastr.error('Error al agregar la imagen');
+        }
+      )
+      
     }
   }
 
+  eliminarVariacion(id:any){
+    this._productoService.deleteVariacion(id,this.token).subscribe(
+      response=>{
+        console.log(response);
+        if(response.data){
+          toastr.success('Variacion eliminada correctamente');
+          this.initVariaciones();
+        }else{
+          toastr.error('Error al eliminar la variacion');
+        }
+        $('#delete-'+id).modal('hide')
+      }
+     
+    )
+  }
+
+  eliminarImagen(id:any){
+    this.btn_delete_load=true
+    this._productoService.deleteImagen(id,this.token).subscribe(
+      response=>{
+        console.log(response);
+        if(response.data){
+          toastr.success('Imagen eliminada correctamente');
+          this.initGaleria();
+        }else{
+          toastr.error('Error al eliminar la imagen');
+        }
+        $('#deleteImg-'+id).modal('hide')
+        this.btn_delete_load=false
+      }
+     
+    )
+  }
+
   actualizar() {
-    
+    this.etiquetas = [];
+    for(var item of this.tagify.getTagElms()){
+      this.etiquetas.push(item.__tagifyTagData.value);
+    }
+   
+    if (!this.producto.titulo) {
+      toastr.error('Ingrese un titulo');
+    } else if (!this.producto.clasificacion) {
+      toastr.error('Ingrese una clasificacion');
+    } else if (!this.producto.categoria) {
+      toastr.error('Ingrese una categoria');
+    } else if (!this.producto.subcategorias) {
+      toastr.error('Ingrese una subcategoria');
+    } else if (this.etiquetas.length == 0) {
+      toastr.error('Ingrese etiquetas');
+      
+    } else if (!this.producto.descripcion) {
+      toastr.error('Ingrese una descripcion');
+
+    }
+    else{
+      let data:any={
+        titulo:this.producto.titulo,
+        clasificacion:this.producto.clasificacion,
+        categoria:this.producto.categoria,
+        subcategorias:this.producto.subcategorias,
+        etiquetas:this.etiquetas,
+        descripcion:this.producto.descripcion
+      }
+      
+      this._productoService.updateProducto(this.id,data,this.token).subscribe(
+        response=>{
+          console.log(response);
+          if(response.data){
+            toastr.success('Producto actualizado correctamente');
+            this.initData()
+            this._router.navigate(['/producto']);
+          }
+        },
+        error=>{
+          toastr.error('Error al actualizar el producto');
+        }
+      )
+    }
   }
 }

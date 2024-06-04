@@ -28,27 +28,11 @@
         <div class="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500" id="#kt_aside_menu" data-kt-menu="true">
           <div class="menu-item">
             <div class="menu-content pb-2">
-              <span class="menu-section text-muted text-uppercase fs-8 ls-1">Dashboard</span>
+              <span class="menu-section text-muted text-uppercase fs-8 ls-1">Menu</span>
             </div>
           </div>
-          <div class="menu-item">
-            <a class="menu-link " href="../../demo1/dist/index.html">
-              <span class="menu-icon">
-                <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
-                <span class="svg-icon svg-icon-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
-                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="black" />
-                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="black" />
-                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="black" />
-                  </svg>
-                </span>
-                <!--end::Svg Icon-->
-              </span>
-              <span class="menu-title">Default</span>
-            </a>
-          </div>
-          <div class="menu-item">
+          
+            <div class="menu-item"  *ngIf="tienePermiso('obtener usuarios')" >
             <a class="menu-link " [routerLink]="['/colaborador']" routerLinkActive="active" >
               <span class="menu-icon">
                 <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
@@ -65,12 +49,27 @@
               <span class="menu-title">Usuarios</span>
             </a>
           </div>
+          <div class="menu-item" *ngIf="tienePermiso('obtener roles')">
+            <a class="menu-link " [routerLink]="['/rol']" routerLinkActive="active" >
+              <span class="menu-icon">
+                <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                <span class="svg-icon svg-icon-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
+                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="black" />
+                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="black" />
+                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="black" />
+                  </svg>
+                </span>
+                <!--end::Svg Icon-->
+              </span>
+              <span class="menu-title">Roles</span>
+            </a>
+          </div>
           
-          <div class="menu-item">
-            <div class="menu-content pt-8 pb-2">
-              <span class="menu-section text-muted text-uppercase fs-8 ls-1">Productos</span>
-            </div>
-            <div class="menu-item">
+         
+            
+            <div class="menu-item" *ngIf="tienePermiso('obtener categorias')" >
               <a class="menu-link " [routerLink]="['/categoria']" routerLinkActive="active" >
                 <span class="menu-icon">
                   <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
@@ -87,7 +86,7 @@
                 <span class="menu-title">Categorias</span>
               </a>
             </div>
-            <div class="menu-item">
+            <div class="menu-item" *ngIf="tienePermiso('obtener productos')" >
               <a class="menu-link " [routerLink]="['/producto']" routerLinkActive="active" >
                 <span class="menu-icon">
                   <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
@@ -104,7 +103,41 @@
                 <span class="menu-title">Productos</span>
               </a>
             </div>
-          </div>
+            <div class="menu-item" *ngIf="tienePermiso('obtener ingresos')" >
+              <a class="menu-link " [routerLink]="['/ingresos']" routerLinkActive="active" >
+                <span class="menu-icon">
+                  <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                  <span class="svg-icon svg-icon-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                      <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
+                      <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="black" />
+                      <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="black" />
+                      <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="black" />
+                    </svg>
+                  </span>
+                  <!--end::Svg Icon-->
+                </span>
+                <span class="menu-title">Ingresos</span>
+              </a>
+            </div>
+            <div class="menu-item">
+              <a class="menu-link " [routerLink]="['/inventario']" routerLinkActive="active" >
+                <span class="menu-icon">
+                  <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                  <span class="svg-icon svg-icon-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                      <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
+                      <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="black" />
+                      <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="black" />
+                      <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="black" />
+                    </svg>
+                  </span>
+                  <!--end::Svg Icon-->
+                </span>
+                <span class="menu-title">Inventario</span>
+              </a>
+            </div>
+          
           <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
             <span class="menu-link">
               <span class="menu-icon">

@@ -39,6 +39,7 @@ export class LoginComponent {
             if(response.data != undefined){
                 localStorage.setItem('user',JSON.stringify(response.data))
                 localStorage.setItem('token',response.jwt)
+                localStorage.setItem('funcionalidad',response.funcionalidades)
                 this._router.navigate(['/dashboard'])
             }else{
               toastr.error(response.message)

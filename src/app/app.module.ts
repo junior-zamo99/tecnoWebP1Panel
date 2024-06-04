@@ -18,6 +18,14 @@ import { EditCategoriaComponent } from './components/categorias/edit-categoria/e
 import { IndexProductoComponent } from './components/productos/index-producto/index-producto.component';
 import { CreateProductoComponent } from './components/productos/create-producto/create-producto.component';
 import { EditProductoComponent } from './components/productos/edit-producto/edit-producto.component';
+import { IndexRolComponent } from './components/roles/index-rol/index-rol.component';
+import { CreateRolComponent } from './components/roles/create-rol/create-rol.component';
+import { EditRolComponent } from './components/roles/edit-rol/edit-rol.component';
+import { IndexIngresosComponent } from './components/ingresos/index-ingresos/index-ingresos.component';
+import { CreateIngresosComponent } from './components/ingresos/create-ingresos/create-ingresos.component';
+import { DetalleIngresosComponent } from './components/ingresos/detalle-ingresos/detalle-ingresos.component';
+import { IndexInventarioComponent } from './components/inventario/index-inventario/index-inventario.component';
+import { DetalleInventarioComponent } from './components/inventario/detalle-inventario/detalle-inventario.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +43,14 @@ import { EditProductoComponent } from './components/productos/edit-producto/edit
     IndexProductoComponent,
     CreateProductoComponent,
     EditProductoComponent,
+    IndexRolComponent,
+    CreateRolComponent,
+    EditRolComponent,
+    IndexIngresosComponent,
+    CreateIngresosComponent,
+    DetalleIngresosComponent,
+    IndexInventarioComponent,
+    DetalleInventarioComponent,
   ],
   imports: [
     BrowserModule,

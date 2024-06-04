@@ -59,6 +59,16 @@ export class ProductoService {
     return this._http.post(this.url+'/createProducto',formData,{headers:headers})
   }
 
+  AddImagenProducto(data:any,token:any):Observable<any>{
+    const headers=new HttpHeaders({'Autorization':token})
+    const formData=new FormData()
+    formData.append('titulo',data.titulo)
+    formData.append('imagen',data.imagen)
+    formData.append('producto',data.producto)
+    return this._http.post(this.url+'/AddImagenProducto',formData,{headers:headers})
+  }
+
+
   getProductos(filtro:any,token:any):Observable<any>{
     const headers=new HttpHeaders({'Content-type':'application/json','Autorization':token})
     return this._http.get(this.url+'/getProductos/'+filtro,{headers:headers})
@@ -72,5 +82,40 @@ export class ProductoService {
   getProducto(id:any,token:any):Observable<any>{
     let headers= new HttpHeaders({'Content-Type':'application/json','Autorization':token})
     return this._http.get(this.url+'/getProducto/'+id,{headers:headers})
+  }
+
+  getVariacionesProducto(id:any,token:any):Observable<any>{
+    let headers= new HttpHeaders({'Content-Type':'application/json','Autorization':token})
+    return this._http.get(this.url+'/getVariacionesProducto/'+id,{headers:headers})
+  }
+
+  getGaleriaProducto(id:any,token:any):Observable<any>{
+    let headers= new HttpHeaders({'Content-Type':'application/json','Autorization':token})
+    return this._http.get(this.url+'/getGaleriaProducto/'+id,{headers:headers})
+  }
+
+  updateProducto(id:any,data:any,token:any):Observable<any>{
+    let headers= new HttpHeaders({'Content-Type':'application/json','Autorization':token})
+    return this._http.put(this.url+'/updateProducto/'+id,data,{headers:headers})
+  }
+
+  addVariacion(data:any,token:any):Observable<any>{
+    let headers= new HttpHeaders({'Content-Type':'application/json','Autorization':token})
+    return this._http.post(this.url+'/addVariacion',data,{headers:headers})
+  }
+
+  deleteVariacion(id:any,token:any):Observable<any>{
+    let headers= new HttpHeaders({'Content-Type':'application/json','Autorization':token})
+    return this._http.delete(this.url+'/deleteVariacion/'+id,{headers:headers})
+  }
+
+  deleteImagen(id:any,token:any):Observable<any>{
+    let headers= new HttpHeaders({'Content-Type':'application/json','Autorization':token})
+    return this._http.delete(this.url+'/deleteImagen/'+id,{headers:headers})
+  }
+
+  buscarProducto(filtro:any,token:any):Observable<any>{
+    const headers=new HttpHeaders({'Content-type':'application/json','Autorization':token})
+    return this._http.get(this.url+'/buscarProducto/'+filtro,{headers:headers})
   }
 }

@@ -1,0 +1,12 @@
+.color_active{
+    color: #009ef7 !important;
+    font-weight: 500;
+}
+
+.bg_active{
+    background-color: #50cd89 !important;
+   
+}
+td{
+    border: 1px #ccc solid ; padding: 8px 15 px ;
+}
