@@ -8,15 +8,21 @@ import { Router } from '@angular/router';
 })
 export class TopbarComponent {
 
+  public user = JSON.parse(localStorage.getItem('user') || '{}');
   constructor(
     private _userService:UsuarioService,
     private router: Router
-  ){}
+  ){
+ 
+  }
 
   logout(){
     localStorage.clear()
     window.location.reload()
     this.router.navigate(['/']);
   }
+
+
+
 
 }

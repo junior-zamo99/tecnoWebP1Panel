@@ -26,6 +26,8 @@ import { CreateIngresosComponent } from './components/ingresos/create-ingresos/c
 import { DetalleIngresosComponent } from './components/ingresos/detalle-ingresos/detalle-ingresos.component';
 import { IndexInventarioComponent } from './components/inventario/index-inventario/index-inventario.component';
 import { DetalleInventarioComponent } from './components/inventario/detalle-inventario/detalle-inventario.component';
+import { CreateTenentComponent } from './components/tenent/create-tenent/create-tenent.component';
+import { SuscripcionComponent } from './components/tenent/suscripcion/suscripcion.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +53,8 @@ import { DetalleInventarioComponent } from './components/inventario/detalle-inve
     DetalleIngresosComponent,
     IndexInventarioComponent,
     DetalleInventarioComponent,
+    CreateTenentComponent,
+    SuscripcionComponent,
   ],
   imports: [
     BrowserModule,

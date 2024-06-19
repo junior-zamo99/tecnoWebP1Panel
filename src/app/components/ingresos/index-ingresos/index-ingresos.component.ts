@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { GLOBAL } from '../../../services/GLOBAL';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IngresoService } from '../../../services/ingreso.service';
-import { response } from 'express';
+import { RolService } from '../../../services/rol.service';
+
 declare var $:any
 declare var moment:any
 
@@ -21,11 +22,16 @@ export class IndexIngresosComponent {
   public IniciarFecha:any=''
   public FinalFecha:any=''
 
+  public user = JSON.parse(localStorage.getItem('user') || '{}');
+  public rolId =''
+  public rol:any;
+  public funcionalidades:any=[]
 
   constructor(
     private route:ActivatedRoute,
     private router:Router,
-    private ingresoService:IngresoService
+    private ingresoService:IngresoService,
+    private rolservice: RolService,
   ){}
 
   ngOnInit(){
@@ -42,7 +48,7 @@ export class IndexIngresosComponent {
       } );
 
     },50)
-
+    this.cargarRoles()
     this.route.queryParams.subscribe((params:any)=>{
       if(params.IniciarFecha && params.FinalFecha){
         this.IniciarFecha=params.IniciarFecha
@@ -54,8 +60,27 @@ export class IndexIngresosComponent {
       this.setFecha()
     })
 
+    
   }
 
+ 
+
+  cargarRoles(){
+    this.rolId=this.user.rol;
+    this.rolservice.getRol(this.rolId,this.token).subscribe(
+      response => {
+        this.rol = response;
+        this.funcionalidades=this.rol.funcionalidades
+
+        console.log(this.rol)
+        console.log(this.funcionalidades)
+      }
+    );
+  }
+
+  tienePermiso(permiso: string): boolean {
+    return this.funcionalidades.some((funcionalidad: any) => funcionalidad.nombre === permiso);
+  }
   setFecha(){
 
     setTimeout(()=>{

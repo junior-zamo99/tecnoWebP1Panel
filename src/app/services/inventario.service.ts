@@ -17,4 +17,9 @@ export class InventarioService {
     const headers=new HttpHeaders({'Content-type':'application/json','Autorization':token})
     return this._http.get(this.url+'/getProductosInventario/'+filtro,{headers:headers})
   }
+
+  getVariacionInventario(id:any,token:any):Observable<any>{
+    const headers=new HttpHeaders({'Content-type':'application/json','Autorization':token})
+    return this._http.get(this.url+'/getVariacionInventario/'+id,{headers:headers})
+  }
 }

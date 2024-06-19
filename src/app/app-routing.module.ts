@@ -20,34 +20,38 @@ import { CreateIngresosComponent } from './components/ingresos/create-ingresos/c
 import { DetalleIngresosComponent } from './components/ingresos/detalle-ingresos/detalle-ingresos.component';
 import { IndexInventarioComponent } from './components/inventario/index-inventario/index-inventario.component';
 import { DetalleInventarioComponent } from './components/inventario/detalle-inventario/detalle-inventario.component';
+import { CreateTenentComponent } from './components/tenent/create-tenent/create-tenent.component';
+import { SuscripcionComponent } from './components/tenent/suscripcion/suscripcion.component';
 
 const routes: Routes = [
   {path:'',component:LoginComponent},
+  {path:'suscripcion',component:SuscripcionComponent},
+  {path:'crear/:tipo',component:CreateTenentComponent},
   {path:'dashboard',component:DashboardComponent, canActivate:[AuthGuard]},
 
-  {path:'colaborador', component: IndexUsuarioComponent},
-  {path:'colaborador/create', component: CreateUsuarioComponent},
-  {path:'colaborador/edit/:id', component: EditUsuarioComponent},
+  {path:'colaborador', component: IndexUsuarioComponent,canActivate:[AuthGuard]},
+  {path:'colaborador/create', component: CreateUsuarioComponent,canActivate:[AuthGuard]},
+  {path:'colaborador/edit/:id', component: EditUsuarioComponent,canActivate:[AuthGuard]},
 
-  {path:'categoria/create', component: CreateCategoriaComponent},
-  {path:'categoria', component: IndexCategoriaComponent},
-  {path:'categoria/:clasificacion', component: IndexCategoriaComponent},
-  {path:'categoria/edit/:id', component: EditCategoriaComponent},
+  {path:'categoria/create', component: CreateCategoriaComponent,canActivate:[AuthGuard]},
+  {path:'categoria', component: IndexCategoriaComponent,canActivate:[AuthGuard]},
+  {path:'categoria/:clasificacion', component: IndexCategoriaComponent,canActivate:[AuthGuard]},
+  {path:'categoria/edit/:id', component: EditCategoriaComponent,canActivate:[AuthGuard]},
 
-  {path:'producto', component: IndexProductoComponent},
-  {path:'producto/create', component: CreateProductoComponent},
-  {path:'producto/edit/:id', component: EditProductoComponent},
+  {path:'producto', component: IndexProductoComponent,canActivate:[AuthGuard]},
+  {path:'producto/create', component: CreateProductoComponent,canActivate:[AuthGuard]},
+  {path:'producto/edit/:id', component: EditProductoComponent,canActivate:[AuthGuard]},
 
-  {path:'rol', component: IndexRolComponent},
-  {path:'rol/create', component: CreateRolComponent},
-  {path:'rol/edit/:id', component: EditRolComponent},
+  {path:'rol', component: IndexRolComponent,canActivate:[AuthGuard]},
+  {path:'rol/create', component: CreateRolComponent,canActivate:[AuthGuard]},
+  {path:'rol/edit/:id', component: EditRolComponent,canActivate:[AuthGuard]},
 
-  {path: 'ingresos', component: IndexIngresosComponent},
-  {path :'ingresos/create', component:CreateIngresosComponent},
-  {path:'ingresos/detalles/:id', component:DetalleIngresosComponent},
+  {path: 'ingresos', component: IndexIngresosComponent,canActivate:[AuthGuard]},
+  {path :'ingresos/create', component:CreateIngresosComponent,canActivate:[AuthGuard]},
+  {path:'ingresos/detalles/:id', component:DetalleIngresosComponent,canActivate:[AuthGuard]},
 
-  {path: 'inventario', component: IndexInventarioComponent},
-  {path:'inventario/detalles/:id', component:DetalleInventarioComponent},
+  {path: 'inventario', component: IndexInventarioComponent,canActivate:[AuthGuard]},
+  {path:'inventario/detalles/:id', component:DetalleInventarioComponent,canActivate:[AuthGuard]},
 
 ];
 

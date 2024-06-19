@@ -59,7 +59,7 @@
                             <!--end::Title-->
                     
                             <!--begin::Create campaign button-->
-                            <div class="card-toolbar d-none d-sm-block">
+                            <div *ngIf="tienePermiso('crear ingreso')"   class="card-toolbar d-none d-sm-block">
                                 <div class="btn-group">
                                     <a [routerLink]="['/ingresos/create']" class="btn btn-dark">
                                         <span class="svg-icon svg-icon-3"><svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -163,59 +163,81 @@
                             <div class="separator separator-dashed my-5"></div>
                             <!--end::Seprator-->
                     
-                            <div class="card mb-5" style="background: #f5f8fa !important" *ngFor="let item of ingresos">
-                                <div class="card-body">
-                                    
-
-                                    <div class="d-flex justify-content-between">
-                                        <div>
-                                            <span class="fw-700 fs-4 mb-3 text-gray-900"> 
-                                                #{{item.createdAT| date:'YYYY'  }}-{{item.codigo.toString().padStart(6,'0000000')}}
-                                             </span>
-        
-                                             <div class="d-flex flex-wrap fw-semibold fs-6  pe-2">
-                                                <a  class="d-flex align-items-center text-gray-500  me-5 mb-2">
-                                                {{item.usuario.nombres.split(' ')[0]}}
-                                                 {{item.usuario.apellidos.split(' ')[0]}}
-                                                </a>
-                                                <a  class="d-flex align-items-center text-gray-500  me-5 mb-2">
-                                                {{item.createdAT| date}}
-                                                </a>
-                                                <a  class="d-flex align-items-center text-gray-500  mb-2 me-5">
-                                                     {{item.proveedor}}
-                                                </a>
-
-                                                <span class="badge " [ngClass]="{'badge-primary': item.estado=='Procesado', 'badge-danger':item.estado=='Cancelado', 'badge-success':item.estado=='Confirmado' }" style="height: 20px !important;">{{item.estado}}</span>
-                                               
-                                            </div>
-
-                                            <ul style="list-style: none; padding-left: 0px; margin-bottom: 0px;  ">
-                                                <li>
-                                                   <a [routerLink]="['/ingresos/detalles',item._id]">
-                                                    <code style="color: blue;">
-                                                        Detalles
-                                                    </code>
-                                                   </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 "
-                                        style="background-color: white;"
-                                        >
-                                            <!--begin::Number-->
-                                            <div class="d-flex align-items-center">
-                                                <div class="fs-2 fw-bold " >  {{item.total| currency:'BOB' }} </div>
-                                            </div>
-                                            <!--end::Number-->
+                            <ng-container *ngIf="ingresos.length>=1" >
+                                <div class="card mb-5" style="background: #f5f8fa !important" *ngFor="let item of ingresos| slice:(page-1) * pageSize: (page-1) * pageSize+pageSize ; let idx=index ">
+                                    <div class="card-body">
+                                        
+    
+                                        <div class="d-flex justify-content-between">
+                                            <div>
+                                                <span class="fw-700 fs-4 mb-3 text-gray-900"> 
+                                                    #{{item.createdAT| date:'YYYY'  }}-{{item.codigo.toString().padStart(6,'0000000')}}
+                                                 </span>
             
-                                            <!--begin::Label-->
-                                            <div class="fw-semibold fs-6 text-gray-500">Total</div>
-                                            <!--end::Label-->
+                                                 <div class="d-flex flex-wrap fw-semibold fs-6  pe-2">
+                                                    <a  class="d-flex align-items-center text-gray-500  me-5 mb-2">
+                                                    {{item.usuario.nombres.split(' ')[0]}}
+                                                     {{item.usuario.apellidos.split(' ')[0]}}
+                                                    </a>
+                                                    <a  class="d-flex align-items-center text-gray-500  me-5 mb-2">
+                                                    {{item.createdAT| date}}
+                                                    </a>
+                                                    <a  class="d-flex align-items-center text-gray-500  mb-2 me-5">
+                                                         {{item.proveedor}}
+                                                    </a>
+    
+                                                    <span class="badge " [ngClass]="{'badge-primary': item.estado=='Procesado', 'badge-danger':item.estado=='Cancelado', 'badge-success':item.estado=='Confirmado' }" style="height: 20px !important;">{{item.estado}}</span>
+                                                   
+                                                </div>
+    
+                                                <ul *ngIf="tienePermiso('detalles de ingreso')" style="list-style: none; padding-left: 0px; margin-bottom: 0px;  ">
+                                                    <li>
+                                                       <a [routerLink]="['/ingresos/detalles',item._id]">
+                                                        <code style="color: blue;">
+                                                            Detalles
+                                                        </code>
+                                                       </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div *ngIf="tienePermiso('total de ingreso')" class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 "
+                                            style="background-color: white;"
+                                            >
+                                                <!--begin::Number-->
+                                                <div  class="d-flex align-items-center">
+                                                    <div class="fs-2 fw-bold " >  {{item.total| currency:'BOB' }} </div>
+                                                </div>
+                                                <!--end::Number-->
+                
+                                                <!--begin::Label-->
+                                                <div class="fw-semibold fs-6 text-gray-500">Total</div>
+                                                <!--end::Label-->
+                                            </div>
                                         </div>
+                                        
                                     </div>
-                                    
                                 </div>
-                            </div>
+                            </ng-container>
+                            <ng-container *ngIf="ingresos.length==0" >
+                                <div data-kt-search-element="empty" class="text-center">
+                                    <!--begin::Icon-->
+                                    <div class="pt-10 pb-5">
+                                        <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor"/>
+                                            <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor"/>
+                                            </svg>
+                                            </span>
+                                    </div>
+                                    <!--end::Icon-->
+                                
+                                    <!--begin::Message-->
+                                    <div class="pb-15 fw-semibold">
+                                        <h3 class="text-gray-600 fs-5 mb-2">no se encontraron resultados</h3>
+                                        <div class="text-muted fs-7">Vuelva a intentar con una consulta diferente</div>
+                                    </div>
+                                    <!--end::Message-->
+                                </div>
+                            </ng-container>
                         </div>
                         <!--end::Card body-->
                         <div class="card-footer" >

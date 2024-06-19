@@ -176,7 +176,7 @@
                                         <ng-container *ngFor="let item of productos | slice:(page-1) * pageSize: (page-1) * pageSize+pageSize ; let idx=index " >
                                             <tr >
                                                 <!--begin::Category=-->
-                                                <td class="min-w-200px">
+                                                <td colspan="2" class="min-w-200px">
                                                     <div class="d-flex">
                                                         <!--begin::Thumbnail-->
                                                         <a class="symbol symbol-50px me-3">
@@ -200,7 +200,7 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div class="m-0">                            
+                                                    <div *ngIf="tienePermiso('stock')" class="m-0">                            
                                                         <span class="fw-semibold text-gray-500 d-block fs-8">Disponible</span>
                                                         <code>
                                                             {{item.unidades}} Unidades
@@ -208,7 +208,7 @@
                                                     </div>
                                                 </td>
                                               
-                                                <td class="text-end min-w-150px">
+                                                <td *ngIf="tienePermiso('detalle de inventario')"  class="text-end min-w-150px">
                                                     <a class="btn btn-sm btn-icon btn-light btn-active-light-primary toggle h-25px w-25px active" *ngIf="!item.visible" (click)="item.visible=true" >
                                                         <span class="svg-icon svg-icon-muted svg-icon-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                             <rect opacity="0.5" x="11" y="18" width="12" height="2" rx="1" transform="rotate(-90 11 18)" fill="currentColor"/>

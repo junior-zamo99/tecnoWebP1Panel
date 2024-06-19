@@ -15,6 +15,10 @@ export class UsuarioService {
     private  _http: HttpClient
   ) {}
 
+  createTenant(data:any):Observable<any>{
+    return this._http.post(this.url+'/createTenant',data)
+  }
+
   createUsuario(data:any,token:any):Observable<any>{
     let headers= new HttpHeaders({'Content-Type':'application/json','Autorization':token})
     return this._http.post(this.url+'/createUsuario',data,{headers:headers})

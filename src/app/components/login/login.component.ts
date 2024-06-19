@@ -16,7 +16,8 @@ export class LoginComponent {
     email:'',
     password:''
   }
-
+  token: any;
+  
   constructor(
     private _usuarioServices: UsuarioService,
     private _router: Router
@@ -26,27 +27,28 @@ export class LoginComponent {
 
   }
 
-  login(){
-      if(!this.usuario.email){
-          toastr.error("correo es requerido")
-      }else if((!this.usuario.password)){
-        toastr.error("la contraseña es requerido")
-      }else{
-        console.log(this.usuario)
-        this._usuarioServices.login(this.usuario).subscribe(
-          response=>{
-            console.log(response)
-            if(response.data != undefined){
-                localStorage.setItem('user',JSON.stringify(response.data))
-                localStorage.setItem('token',response.jwt)
-                localStorage.setItem('funcionalidad',response.funcionalidades)
-                this._router.navigate(['/dashboard'])
-            }else{
-              toastr.error(response.message)
-            }
-          }
+  login() {
+    if (!this.usuario.email) {
+      toastr.error('El campo Registro es requerido');
+    } else if (!this.usuario.password) {
+      toastr.error('El campo password es requerido');
+    } else {
+      console.log(this.usuario);
+      this._usuarioServices.login(this.usuario).subscribe(
+        response => {
+          console.log(response);
+          localStorage.setItem('token', response.jwt);
+          localStorage.setItem('user', JSON.stringify(response.data));
+     
+          toastr.success('Inicio de sesión exitoso');
+          this._router.navigate(['/dashboard']);
           
-        )
-      }
+        },
+        error => {
+          toastr.error('Ocurrió un error al intentar iniciar sesión');
+          console.error(error);
+        }
+      );
+    }
   }
 }
