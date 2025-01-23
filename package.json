@@ -29,6 +29,7 @@
     "express": "^4.18.2",
     "file-saver": "^2.0.5",
     "jquery": "^3.7.1",
+    "panel": "file:",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
