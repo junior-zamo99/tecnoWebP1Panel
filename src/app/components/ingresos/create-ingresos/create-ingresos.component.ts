@@ -3,6 +3,7 @@ import { ProductoService } from '../../../services/producto.service';
 import { GLOBAL } from '../../../services/GLOBAL';
 import { IngresoService } from '../../../services/ingreso.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { InventarioService } from '../../../services/inventario.service';
 
 declare var $:any
 declare var toastr:any;
@@ -20,11 +21,12 @@ export class CreateIngresosComponent {
   public productoSeleccionado:any={}
   public nombreProducto=''
   public variacionesProducto:Array<any>=[]
-  public proveedores:Array<any>=GLOBAL.proovedores
-  public almacenes:Array<any> =GLOBAL.almacenes  
+  public proveedores:Array<any>=[]
+  public almacenes:Array<any> =[] 
   public ingreso:any={
     proveedor:'',
     almacen:'',
+    tipo:''
   }
 
   public detalleIngreso:any={
@@ -36,10 +38,38 @@ export class CreateIngresosComponent {
   constructor(
     private productoService:ProductoService,
     private ingresoService:IngresoService,
+    private inventarioService:InventarioService,
     private router: Router
   ) { }
 
-  ngOnInit(){
+  ngOnInit(){ 
+    this.initProveedor()
+    this.initAlmacen()
+  }
+
+
+  initProveedor(){
+    this.inventarioService.getProveedores(this.token).subscribe(
+      response=>{
+        if(response.data != undefined){
+          this.proveedores=response.data
+        }else{
+          this.proveedores=[]
+        }
+      }
+    )
+  }
+
+  initAlmacen(){
+    this.inventarioService.getAlmacenes(this.token).subscribe(
+      response=>{
+        if(response.data != undefined){
+          this.almacenes=response.data
+        }else{
+          this.almacenes=[]
+        }
+      }
+    )
   }
 
   initProducto(){ 
@@ -130,6 +160,8 @@ export class CreateIngresosComponent {
       toastr.error('Debe seleccionar un almacen')
     }else if(this.ingreso.detalles.length==0){
       toastr.error('Debe agregar al menos un detalle')
+    }else if(!this.ingreso.tipo){
+      toastr.error('Debe seleccionar un tipo')
     }else{
       this.ingresoService.createIngreso(this.ingreso,this.token).subscribe(
         response=>{

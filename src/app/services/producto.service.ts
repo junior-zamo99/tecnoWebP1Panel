@@ -168,4 +168,9 @@ export class ProductoService {
     const headers=new HttpHeaders({'Content-type':'application/json','Autorization':token})
     return this._http.delete(this.url+'/deleteCupon/'+id,{headers:headers})
   }
+
+  updateVariacionPrecio(id:any,data:any,token:any):Observable<any>{
+    const headers=new HttpHeaders({'Content-type':'application/json','Autorization':token})
+    return this._http.put(this.url+'/updateVariacionPrecio/'+id,data,{headers:headers})
+  }
 }
