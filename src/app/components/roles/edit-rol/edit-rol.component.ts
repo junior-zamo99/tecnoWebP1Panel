@@ -43,7 +43,7 @@ export class EditRolComponent {
         }
       }
     )
-    this._rolService.getFuncionalidades(this.token).subscribe(
+    this._rolService.getFuncionalidades().subscribe(
       response=>{
         console.log(response)
         if(response.data){

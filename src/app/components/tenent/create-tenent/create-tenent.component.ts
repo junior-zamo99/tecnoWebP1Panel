@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { UsuarioService } from '../../../services/usuario.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { RolService } from '../../../services/rol.service';
 declare var toastr:any
 @Component({
   selector: 'app-create-tenent',
@@ -15,6 +16,7 @@ export class CreateTenentComponent {
 
   constructor(
     private _usuarioService: UsuarioService,
+    private _rolService: RolService,
     private _router:Router,
     private route:ActivatedRoute
   ){}
@@ -28,7 +30,17 @@ export class CreateTenentComponent {
       }
       console.log(this.tipo) //; // Aquí puedes hacer lo que necesites con el parámetro
     });// El símbolo '+' convierte el parámetro a un número
+    
+    this._rolService.getFuncionalidades().subscribe(
+      response=>{
+        if(response.data != undefined){
+          this.roles=response.data
+          console.log(this.roles)
+        }
+      }
+    )
   }
+
 
   registrar(){
     if(!this.empresa.nombreTienda){

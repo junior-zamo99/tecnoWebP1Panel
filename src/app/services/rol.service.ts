@@ -34,8 +34,8 @@ export class RolService {
     return this._http.put(this.url+'/updateRol/'+id,data,{headers:headers})
   }
 
-  getFuncionalidades(token:any):Observable<any>{
-    let headers= new HttpHeaders({'Content-Type':'application/json','Autorization':token})
+  getFuncionalidades():Observable<any>{
+    let headers= new HttpHeaders({'Content-Type':'application/json'})
     return this._http.get(this.url+'/getFuncionalidades',{headers:headers})
   }
 }

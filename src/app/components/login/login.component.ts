@@ -17,6 +17,7 @@ export class LoginComponent {
     password:''
   }
   token: any;
+  public bloqueo = 0;
   
   constructor(
     private _usuarioServices: UsuarioService,
@@ -32,16 +33,30 @@ export class LoginComponent {
       toastr.error('El campo Registro es requerido');
     } else if (!this.usuario.password) {
       toastr.error('El campo password es requerido');
+    } else if (this.bloqueo==3) {
+      toastr.error('bloqueo por favor espere');
+      
     } else {
       console.log(this.usuario);
       this._usuarioServices.login(this.usuario).subscribe(
         response => {
           console.log(response);
-          localStorage.setItem('token', response.jwt);
-          localStorage.setItem('user', JSON.stringify(response.data));
-     
-          toastr.success('Inicio de sesión exitoso');
-          this._router.navigate(['/dashboard']);
+          if(response.message == 'la contraseña es incorrecta'){
+            this.bloqueo++;
+            toastr.error('Contraseña incorrecta, intento '+this.bloqueo+' de 3');
+          }else{
+            if(response.data!= undefined){
+              localStorage.setItem('token', response.jwt);
+              localStorage.setItem('user', JSON.stringify(response.data));
+              toastr.success('Inicio de sesión exitoso');
+              this._router.navigate(['/dashboard']);
+            }else{
+              toastr.error(response.message);
+            }
+            this.bloqueo = 0;
+          }
+          
+         
           
         },
         error => {
