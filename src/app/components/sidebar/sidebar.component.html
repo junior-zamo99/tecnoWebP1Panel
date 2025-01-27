@@ -158,7 +158,7 @@ style="background-color: #0d0e12 !important;">
         </a>
       </div>
 
-      <div class="menu-item" >
+      <div class="menu-item" *ngIf="tienePermiso('gestionar proveedores')" >
         <a class="menu-link " [routerLink]="['/proveedor']" routerLinkActive="active" >
           <span class="menu-icon">
             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
@@ -176,7 +176,7 @@ style="background-color: #0d0e12 !important;">
         </a>
       </div>
 
-      <div class="menu-item" >
+      <div class="menu-item" *ngIf="tienePermiso('gestionar almacen')" >
         <a class="menu-link " [routerLink]="['/almacen']" routerLinkActive="active" >
           <span class="menu-icon">
             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
@@ -194,7 +194,7 @@ style="background-color: #0d0e12 !important;">
         </a>
       </div>
 
-      <div class="menu-item" >
+      <div class="menu-item" *ngIf="tienePermiso('gestionar cupon')"  >
         <a class="menu-link " [routerLink]="['/cupon']" routerLinkActive="active" >
           <span class="menu-icon">
             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->

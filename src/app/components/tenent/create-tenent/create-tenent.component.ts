@@ -59,12 +59,14 @@ export class CreateTenentComponent {
       console.log(this.empresa)
       this._usuarioService.createTenant(this.empresa).subscribe(
         response=>{
+          console.log(response)
           if(response.data != undefined){
             console.log(response)
             this.btn_load=false
             toastr.success('Registro exitoso')
             this._router.navigate(['/']) 
           }else{
+
             toastr.error('Error al registrar')
           }}
       )
