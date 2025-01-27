@@ -28,6 +28,15 @@ import { IndexInventarioComponent } from './components/inventario/index-inventar
 import { DetalleInventarioComponent } from './components/inventario/detalle-inventario/detalle-inventario.component';
 import { CreateTenentComponent } from './components/tenent/create-tenent/create-tenent.component';
 import { SuscripcionComponent } from './components/tenent/suscripcion/suscripcion.component';
+import { IndexVentasComponent } from './components/ventas/index-ventas/index-ventas.component';
+import { DetallesVentasComponent } from './components/ventas/detalles-ventas/detalles-ventas.component';
+import { IndexProveedorComponent } from './components/proveedor/index-proveedor/index-proveedor.component';
+import { CreateProveedorComponent } from './components/proveedor/create-proveedor/create-proveedor.component';
+import { CreateAlmacenComponent } from './components/almacen/create-almacen/create-almacen.component';
+import { IndexAlmacenComponent } from './components/almacen/index-almacen/index-almacen.component';
+import { IndexCuponComponent } from './components/cupon/index-cupon/index-cupon.component';
+import { CreateCuponComponent } from './components/cupon/create-cupon/create-cupon.component';
+import { EditCuponComponent } from './components/cupon/edit-cupon/edit-cupon.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +64,15 @@ import { SuscripcionComponent } from './components/tenent/suscripcion/suscripcio
     DetalleInventarioComponent,
     CreateTenentComponent,
     SuscripcionComponent,
+    IndexVentasComponent,
+    DetallesVentasComponent,
+    IndexProveedorComponent,
+    CreateProveedorComponent,
+    CreateAlmacenComponent,
+    IndexAlmacenComponent,
+    IndexCuponComponent,
+    CreateCuponComponent,
+    EditCuponComponent,
   ],
   imports: [
     BrowserModule,

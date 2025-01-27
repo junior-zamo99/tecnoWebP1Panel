@@ -96,7 +96,8 @@
                                 <!--begin::Tab item-->
                                 <div class="fs-4 fw-bold pb-3 cursor-pointer" 
                                 [ngClass]="{'border-bottom border-3 border-primary ':almacenActive == item.almacen, 'text-gray-600': almacenActive != item.almacen}"
-                                (click)="setAlmacen(item.almacen)"
+                                (click)="setAlmacen(item)"
+
                                 *ngFor="let item of almacenes"  >
                                    {{item.almacen}} ({{item.unidades.length}})
                                 </div>

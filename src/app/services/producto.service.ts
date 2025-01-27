@@ -118,4 +118,54 @@ export class ProductoService {
     const headers=new HttpHeaders({'Content-type':'application/json','Autorization':token})
     return this._http.get(this.url+'/buscarProducto/'+filtro,{headers:headers})
   }
+
+  getAlmacenes(token:any):Observable<any>{
+    const headers=new HttpHeaders({'Content-type':'application/json','Autorization':token})
+    return this._http.get(this.url+'/getAlmacenes',{headers:headers})
+  }
+
+  getCategoriasCupon(filtro:any,token:any):Observable<any>{
+    const headers=new HttpHeaders({'Content-type':'application/json','Autorization':token})
+    return this._http.get(this.url+'/getCategoriasCupon/'+filtro,{headers:headers})
+  }
+
+  getProductosCupon(filtro:any,token:any):Observable<any>{
+    const headers=new HttpHeaders({'Content-type':'application/json','Autorization':token})
+    return this._http.get(this.url+'/getProductosCupon/'+filtro,{headers:headers})
+  }
+
+  crearCupon(data:any,token:any):Observable<any>{
+    const headers=new HttpHeaders({'Content-type':'application/json','Autorization':token})
+    return this._http.post(this.url+'/crearCupon',data,{headers:headers})
+  }
+
+  getCupones(codigo:any,token:any):Observable<any>{
+    const headers=new HttpHeaders({'Content-Type':'application/json','Autorization':token})
+    return this._http.get(this.url+'/getCupones/'+codigo,{headers:headers})
+  }
+
+  getCupon(id:any,token:any):Observable<any>{
+    const headers=new HttpHeaders({'Content-Type':'application/json','Autorization':token})
+    return this._http.get(this.url+'/getCupon/'+id,{headers:headers})
+  }
+
+  updateCupon(id:any,data:any,token:any):Observable<any>{
+    const headers=new HttpHeaders({'Content-type':'application/json','Autorization':token})
+    return this._http.put(this.url+'/updateCupon/'+id,data,{headers:headers})
+  }
+
+  getDetallesCupon(id:any,token:any):Observable<any>{
+    const headers=new HttpHeaders({'Content-Type':'application/json','Autorization':token})
+    return this._http.get(this.url+'/getDetallesCupon/'+id,{headers:headers})
+  }
+
+  addDetalleCupon(data:any,token:any):Observable<any>{
+    const headers=new HttpHeaders({'Content-type':'application/json','Autorization':token})
+    return this._http.post(this.url+'/addDetalleCupon',data,{headers:headers})
+  }
+
+  deleteCupon(id:any,token:any):Observable<any>{
+    const headers=new HttpHeaders({'Content-type':'application/json','Autorization':token})
+    return this._http.delete(this.url+'/deleteCupon/'+id,{headers:headers})
+  }
 }

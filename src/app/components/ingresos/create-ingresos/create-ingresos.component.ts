@@ -62,6 +62,7 @@ export class CreateIngresosComponent {
     this.productoService.getVariacionesProducto(producto._id,this.token).subscribe(
       response=>{
         if(response.data != undefined){
+          console.log(response.data)
           this.variacionesProducto=response.data
         
           $('#modalProducto').modal('hide')

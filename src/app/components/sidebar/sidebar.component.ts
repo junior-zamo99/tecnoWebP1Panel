@@ -40,6 +40,7 @@ export class SidebarComponent {
       response => {
         this.rol = response;
         this.funcionalidades=this.rol.funcionalidades
+        console.log(this.funcionalidades)
       }
     );
     

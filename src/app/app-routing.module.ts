@@ -22,6 +22,15 @@ import { IndexInventarioComponent } from './components/inventario/index-inventar
 import { DetalleInventarioComponent } from './components/inventario/detalle-inventario/detalle-inventario.component';
 import { CreateTenentComponent } from './components/tenent/create-tenent/create-tenent.component';
 import { SuscripcionComponent } from './components/tenent/suscripcion/suscripcion.component';
+import { IndexVentasComponent } from './components/ventas/index-ventas/index-ventas.component';
+import { DetallesVentasComponent } from './components/ventas/detalles-ventas/detalles-ventas.component';
+import { IndexProveedorComponent } from './components/proveedor/index-proveedor/index-proveedor.component';
+import { CreateProveedorComponent } from './components/proveedor/create-proveedor/create-proveedor.component';
+import { IndexAlmacenComponent } from './components/almacen/index-almacen/index-almacen.component';
+import { CreateAlmacenComponent } from './components/almacen/create-almacen/create-almacen.component';
+import { IndexCuponComponent } from './components/cupon/index-cupon/index-cupon.component';
+import { CreateCuponComponent } from './components/cupon/create-cupon/create-cupon.component';
+import { EditCuponComponent } from './components/cupon/edit-cupon/edit-cupon.component';
 
 const routes: Routes = [
   {path:'',component:LoginComponent},
@@ -52,6 +61,20 @@ const routes: Routes = [
 
   {path: 'inventario', component: IndexInventarioComponent,canActivate:[AuthGuard]},
   {path:'inventario/detalles/:id', component:DetalleInventarioComponent,canActivate:[AuthGuard]},
+
+  {path: 'ventas', component: IndexVentasComponent,canActivate:[AuthGuard]},
+  {path:'ventas/detalles/:id', component:DetallesVentasComponent,canActivate:[AuthGuard]},
+
+  {path: 'proveedor', component: IndexProveedorComponent,canActivate:[AuthGuard]},
+  {path :'proveedor/create', component:CreateProveedorComponent,canActivate:[AuthGuard]},
+
+  {path: 'almacen', component: IndexAlmacenComponent,canActivate:[AuthGuard]},
+  {path :'almacen/create', component:CreateAlmacenComponent,canActivate:[AuthGuard]},
+
+  {path:'cupon', component: IndexCuponComponent,canActivate:[AuthGuard]},
+  {path:'cupon/create', component: CreateCuponComponent,canActivate:[AuthGuard]},
+  {path:'cupon/edit/:id', component: EditCuponComponent,canActivate:[AuthGuard]},
+
 
 ];
 

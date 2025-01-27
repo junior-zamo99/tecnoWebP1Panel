@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { InventarioService } from '../../../services/inventario.service';
 import { ActivatedRoute } from '@angular/router';
 import { GLOBAL } from '../../../services/GLOBAL';
+import { ProductoService } from '../../../services/producto.service';
 
 @Component({
   selector: 'app-detalle-inventario',
@@ -17,22 +18,17 @@ export class DetalleInventarioComponent {
   public almacenes: Array<any>=[]
   public almacenActive=''
   public ingresoActive:Array<any>=[]
+  public almacenesA:Array<any>=[]
+
   constructor(
     private inventarioService:InventarioService,
-    private route:ActivatedRoute
+    private route:ActivatedRoute,
+    private ProductoService:ProductoService
   ){
-    let almacenesA= GLOBAL.almacenes
+    
 
-    for(let item of almacenesA){
-      this.almacenes.push({
-        almacen:item,
-        unidades:[]
-      })
-
-      this.almacenActive=this.almacenes[0].almacen
-     
-    }
-
+    
+    
   }
 
 
@@ -45,8 +41,33 @@ export class DetalleInventarioComponent {
   }
 
 
+  obtenerAlmacen(){
+    this.ProductoService.getAlmacenes(this.token).subscribe(
+      response=>{
+        if(response.data!=undefined){
+          this.almacenesA=response.data
+          for(let item of this.almacenesA){
+            this.almacenes.push({
+              id:item._id,
+              almacen:item.nombre,
+              unidades:[]
+            })
+            
+            this.almacenActive=this.almacenes[0]
+      
+           
+          }
+          console.log(this.almacenes)
+        }
+      },
+      error=>{
+        console.log(error)
+      })
+  }
+
 
   initData(){
+    this.obtenerAlmacen()
     this.inventarioService.getVariacionInventario(this.id,this.token).subscribe(
       response=>{
         if(response.data!=undefined)
@@ -56,7 +77,7 @@ export class DetalleInventarioComponent {
             this.setAlmacen(this.almacenActive)
            for(let item of this.unidades){
              for(let almacen of this.almacenes){
-               if(item.ingreso.almacen==almacen.almacen){
+               if(item.ingreso.almacen==almacen.id){
                  almacen.unidades.push(item)
                }
              }
@@ -72,7 +93,7 @@ export class DetalleInventarioComponent {
 
   setAlmacen(almacen:any){
     this.almacenActive=almacen
-    this.ingresoActive=this.unidades.filter(item=>item.ingreso.almacen==almacen)
+    this.ingresoActive=this.unidades.filter(item=>item.ingreso.almacen==almacen.id)
     console.log(this.ingresoActive)
   }
 
