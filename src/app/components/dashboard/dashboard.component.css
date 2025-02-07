@@ -1,0 +1,14 @@
+.card {
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.02);
+    /* Efecto hover */
+}
+
+canvas {
+    max-height: 250px !important;
+    /* Ajusta el tamaño de los gráficos */
+}

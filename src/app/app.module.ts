@@ -37,6 +37,7 @@ import { IndexAlmacenComponent } from './components/almacen/index-almacen/index-
 import { IndexCuponComponent } from './components/cupon/index-cupon/index-cupon.component';
 import { CreateCuponComponent } from './components/cupon/create-cupon/create-cupon.component';
 import { EditCuponComponent } from './components/cupon/edit-cupon/edit-cupon.component';
+import { IndexReporteComponent } from './components/reporte/index-reporte/index-reporte.component';
 
 @NgModule({
   declarations: [
@@ -73,13 +74,14 @@ import { EditCuponComponent } from './components/cupon/edit-cupon/edit-cupon.com
     IndexCuponComponent,
     CreateCuponComponent,
     EditCuponComponent,
+    IndexReporteComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    NgbPaginationModule
+    NgbPaginationModule,
   ],
   providers: [
     provideClientHydration(),

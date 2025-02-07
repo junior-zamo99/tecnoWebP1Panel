@@ -1,0 +1,126 @@
+<div class="d-flex flex-column flex-root">
+    <div class="page d-flex flex-row flex-column-fluid">
+        <app-sidebar></app-sidebar>
+
+        <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+            <app-topbar></app-topbar>
+
+            <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+                <div class="toolbar" id="kt_toolbar">
+                    <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+                        <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">
+                            Generar Reporte
+                        </h1>
+                    </div>
+                </div>
+
+                <div class="post d-flex flex-column-fluid" id="kt_post">
+                    <div id="kt_content_container" class="container-xxl">
+                        <div class="card mb-5">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="form-label">Seleccionar Entidad</label>
+                                        <select class="form-control" [(ngModel)]="entidadSeleccionada">
+                                            <option *ngFor="let entidad of entidades" [value]="entidad">
+                                                {{ entidad }}
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class="form-label">Fecha Inicio</label>
+                                        <input type="date" class="form-control" [(ngModel)]="fechaInicio">
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class="form-label">Fecha Fin</label>
+                                        <input type="date" class="form-control" [(ngModel)]="fechaFin">
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-md-6 text-center">
+                                        <button class="btn btn-info w-100 mt-3" (click)="generarReporte()">
+                                            🔍 Obtener Reporte
+                                        </button>
+                                    </div>
+
+                                    <div class="col-md-6 text-center">
+                                        <button class="btn btn-primary w-100 mt-3" (click)="descargarPDF()"
+                                            [disabled]="reporteDatos.length === 0">
+                                            📥 Descargar PDF
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <div class="table-responsive mt-4" *ngIf="reporteDatos.length > 0">
+                                    <table class="table table-bordered table-striped">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Fecha</th>
+                                                <th>Total</th>
+                                                <th>Estado</th>
+                                                <th>Detalles</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let item of reporteDatos; let i = index">
+                                                <td>{{ i + 1 }}</td>
+                                                <td>{{ item.createdAT | date:'dd/MM/yyyy' }}</td>
+                                                <td>{{ item.total | currency:'USD' }}</td>
+                                                <td>
+                                                    <span class="badge" [ngClass]="{
+                                                            'badge-success': item.estado === 'Confirmado', 
+                                                            'badge-warning': item.estado === 'Procesado',
+                                                            'badge-danger': item.estado === 'Cancelado'
+                                                        }">
+                                                        {{ item.estado }}
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-sm btn-info"
+                                                        [routerLink]="['/ventas/detalles', item._id]">🔍 Ver</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="alert alert-info text-center mt-3" *ngIf="reporteDatos.length === 0">
+                                    No hay datos disponibles en el rango de fechas seleccionado.
+                                </div>
+
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold">Enviar por correo</label>
+                                        <input type="email" class="form-control mb-2" placeholder="Correo destinatario"
+                                            [(ngModel)]="email">
+                                        <input type="text" class="form-control mb-2" placeholder="Asunto"
+                                            [(ngModel)]="asunto">
+                                        <textarea class="form-control mb-2" rows="2" placeholder="Mensaje"
+                                            [(ngModel)]="mensaje"></textarea>
+                                        <button class="btn btn-success w-100" (click)="enviarReporte()"
+                                            [disabled]="reporteDatos.length === 0">
+                                            📧 Enviar Reporte
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

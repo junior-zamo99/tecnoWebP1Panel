@@ -31,49 +31,52 @@ import { CreateAlmacenComponent } from './components/almacen/create-almacen/crea
 import { IndexCuponComponent } from './components/cupon/index-cupon/index-cupon.component';
 import { CreateCuponComponent } from './components/cupon/create-cupon/create-cupon.component';
 import { EditCuponComponent } from './components/cupon/edit-cupon/edit-cupon.component';
+import { IndexReporteComponent } from './components/reporte/index-reporte/index-reporte.component';
 
 const routes: Routes = [
-  {path:'',component:LoginComponent},
-  {path:'suscripcion',component:SuscripcionComponent},
-  {path:'crear/:tipo',component:CreateTenentComponent},
-  {path:'dashboard',component:DashboardComponent, canActivate:[AuthGuard]},
+  { path: '', component: LoginComponent },
+  { path: 'suscripcion', component: SuscripcionComponent },
+  { path: 'crear/:tipo', component: CreateTenentComponent },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
 
-  {path:'colaborador', component: IndexUsuarioComponent,canActivate:[AuthGuard]},
-  {path:'colaborador/create', component: CreateUsuarioComponent,canActivate:[AuthGuard]},
-  {path:'colaborador/edit/:id', component: EditUsuarioComponent,canActivate:[AuthGuard]},
+  { path: 'colaborador', component: IndexUsuarioComponent, canActivate: [AuthGuard] },
+  { path: 'colaborador/create', component: CreateUsuarioComponent, canActivate: [AuthGuard] },
+  { path: 'colaborador/edit/:id', component: EditUsuarioComponent, canActivate: [AuthGuard] },
 
-  {path:'categoria/create', component: CreateCategoriaComponent,canActivate:[AuthGuard]},
-  {path:'categoria', component: IndexCategoriaComponent,canActivate:[AuthGuard]},
-  {path:'categoria/:clasificacion', component: IndexCategoriaComponent,canActivate:[AuthGuard]},
-  {path:'categoria/edit/:id', component: EditCategoriaComponent,canActivate:[AuthGuard]},
+  { path: 'categoria/create', component: CreateCategoriaComponent, canActivate: [AuthGuard] },
+  { path: 'categoria', component: IndexCategoriaComponent, canActivate: [AuthGuard] },
+  { path: 'categoria/:clasificacion', component: IndexCategoriaComponent, canActivate: [AuthGuard] },
+  { path: 'categoria/edit/:id', component: EditCategoriaComponent, canActivate: [AuthGuard] },
 
-  {path:'producto', component: IndexProductoComponent,canActivate:[AuthGuard]},
-  {path:'producto/create', component: CreateProductoComponent,canActivate:[AuthGuard]},
-  {path:'producto/edit/:id', component: EditProductoComponent,canActivate:[AuthGuard]},
+  { path: 'producto', component: IndexProductoComponent, canActivate: [AuthGuard] },
+  { path: 'producto/create', component: CreateProductoComponent, canActivate: [AuthGuard] },
+  { path: 'producto/edit/:id', component: EditProductoComponent, canActivate: [AuthGuard] },
 
-  {path:'rol', component: IndexRolComponent,canActivate:[AuthGuard]},
-  {path:'rol/create', component: CreateRolComponent,canActivate:[AuthGuard]},
-  {path:'rol/edit/:id', component: EditRolComponent,canActivate:[AuthGuard]},
+  { path: 'rol', component: IndexRolComponent, canActivate: [AuthGuard] },
+  { path: 'rol/create', component: CreateRolComponent, canActivate: [AuthGuard] },
+  { path: 'rol/edit/:id', component: EditRolComponent, canActivate: [AuthGuard] },
 
-  {path: 'ingresos', component: IndexIngresosComponent,canActivate:[AuthGuard]},
-  {path :'ingresos/create', component:CreateIngresosComponent,canActivate:[AuthGuard]},
-  {path:'ingresos/detalles/:id', component:DetalleIngresosComponent,canActivate:[AuthGuard]},
+  { path: 'ingresos', component: IndexIngresosComponent, canActivate: [AuthGuard] },
+  { path: 'ingresos/create', component: CreateIngresosComponent, canActivate: [AuthGuard] },
+  { path: 'ingresos/detalles/:id', component: DetalleIngresosComponent, canActivate: [AuthGuard] },
 
-  {path: 'inventario', component: IndexInventarioComponent,canActivate:[AuthGuard]},
-  {path:'inventario/detalles/:id', component:DetalleInventarioComponent,canActivate:[AuthGuard]},
+  { path: 'inventario', component: IndexInventarioComponent, canActivate: [AuthGuard] },
+  { path: 'inventario/detalles/:id', component: DetalleInventarioComponent, canActivate: [AuthGuard] },
 
-  {path: 'ventas', component: IndexVentasComponent,canActivate:[AuthGuard]},
-  {path:'ventas/detalles/:id', component:DetallesVentasComponent,canActivate:[AuthGuard]},
+  { path: 'ventas', component: IndexVentasComponent, canActivate: [AuthGuard] },
+  { path: 'ventas/detalles/:id', component: DetallesVentasComponent, canActivate: [AuthGuard] },
 
-  {path: 'proveedor', component: IndexProveedorComponent,canActivate:[AuthGuard]},
-  {path :'proveedor/create', component:CreateProveedorComponent,canActivate:[AuthGuard]},
+  { path: 'proveedor', component: IndexProveedorComponent, canActivate: [AuthGuard] },
+  { path: 'proveedor/create', component: CreateProveedorComponent, canActivate: [AuthGuard] },
 
-  {path: 'almacen', component: IndexAlmacenComponent,canActivate:[AuthGuard]},
-  {path :'almacen/create', component:CreateAlmacenComponent,canActivate:[AuthGuard]},
+  { path: 'almacen', component: IndexAlmacenComponent, canActivate: [AuthGuard] },
+  { path: 'almacen/create', component: CreateAlmacenComponent, canActivate: [AuthGuard] },
 
-  {path:'cupon', component: IndexCuponComponent,canActivate:[AuthGuard]},
-  {path:'cupon/create', component: CreateCuponComponent,canActivate:[AuthGuard]},
-  {path:'cupon/edit/:id', component: EditCuponComponent,canActivate:[AuthGuard]},
+  { path: 'cupon', component: IndexCuponComponent, canActivate: [AuthGuard] },
+  { path: 'cupon/create', component: CreateCuponComponent, canActivate: [AuthGuard] },
+  { path: 'cupon/edit/:id', component: EditCuponComponent, canActivate: [AuthGuard] },
+
+  { path: 'reporte', component: IndexReporteComponent, canActivate: [AuthGuard] },
 
 
 ];
