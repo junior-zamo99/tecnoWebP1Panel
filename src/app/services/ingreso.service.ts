@@ -32,4 +32,17 @@ export class IngresoService {
     const headers=new HttpHeaders({'Content-type':'application/json','Autorization':token})
     return this._http.put(this.url+'/cambiarEstadoIngreso/'+id,data,{headers:headers})
   }
+
+  BuscarProductoAlmacen(almacen:any,producto:any,variedad:any,cantidad:any,token:any):Observable<any>{
+    const headers=new HttpHeaders({'Content-type':'application/json','Autorization':token})
+    return this._http.get(this.url+'/buscarProductoAlmacen/'+almacen+'/'+producto+'/'+variedad+'/'+cantidad,{headers:headers})
+   
+  }
+
+
+  createEgreso(data:any,token:any):Observable<any>{
+    const headers=new HttpHeaders({'Content-type':'application/json','Autorization':token})
+    return this._http.post(this.url+'/createEgreso',data,{headers:headers})
+  }
+
 }

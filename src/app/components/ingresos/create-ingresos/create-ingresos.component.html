@@ -65,7 +65,7 @@
                           <a
                             
                             class="fs-5 text-gray-900 text-hover-primary fw-bold"
-                            >Proveedor</a
+                            >Tipo</a
                           >
                           <div class="fs-6 fw-semibold text-gray-500">
                             Plan properly your workflow
@@ -73,12 +73,12 @@
                         </div>
                       </div>
                       <div class="d-flex justify-content-end">
-                        <select  name="proveedor" class="form-select" [(ngModel)]="ingreso.proveedor">
+                        <select name="almacen" class="form-select" [(ngModel)]="ingreso.tipo">
                           <option value="" selected disabled>
                             Seleccionar
                           </option>
-                          <option [value]="item._id" *ngFor="let item of proveedores">{{item.nombre}}</option>
-                         
+                          <option value="Compra">Compra</option>
+                          <option value="Devolucion">Devolucion</option>
                         </select>
                       </div>
                     </div>
@@ -107,13 +107,14 @@
                       </div>
                     </div>
                     <div class="separator separator-dashed my-5"></div>
-                    <div class="d-flex flex-stack">
+                   
+                    <div *ngIf="ingreso.tipo=='Compra'" class="d-flex flex-stack">
                       <div class="d-flex">
                         <div class="d-flex flex-column">
                           <a
                             
                             class="fs-5 text-gray-900 text-hover-primary fw-bold"
-                            >Tipo</a
+                            >Proveedor</a
                           >
                           <div class="fs-6 fw-semibold text-gray-500">
                             Plan properly your workflow
@@ -121,17 +122,41 @@
                         </div>
                       </div>
                       <div class="d-flex justify-content-end">
-                        <select name="almacen" class="form-select" [(ngModel)]="ingreso.tipo">
+                        <select  name="proveedor" class="form-select" [(ngModel)]="ingreso.proveedor">
                           <option value="" selected disabled>
                             Seleccionar
                           </option>
-                          <option value="Ingreso">Ingreso</option>
-                          <option value="Egreso">Egreso</option>
+                          <option [value]="item._id" *ngFor="let item of proveedores">{{item.nombre}}</option>
+                         
                         </select>
                       </div>
                     </div>
-                    <div class="separator separator-dashed my-5"></div>
+
+                      <div *ngIf="ingreso.tipo=='Devolucion'" class="d-flex flex-stack">
+                        <div class="d-flex">
+                          <div class="d-flex flex-column">
+                            <a
+                              
+                              class="fs-5 text-gray-900 text-hover-primary fw-bold"
+                              >Razon</a
+                            >
+                            <div class="fs-6 fw-semibold text-gray-500">
+                              Plan properly your workflow
+                            </div>
+                          </div>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Razon"
+                                name="razon"
+                                [(ngModel)]="ingreso.razon"
+                            />   
+                        </div>
+                      </div>
                   </div>
+                  
                 </div>
 
                 <div class="card">

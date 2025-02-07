@@ -37,6 +37,8 @@ import { IndexAlmacenComponent } from './components/almacen/index-almacen/index-
 import { IndexCuponComponent } from './components/cupon/index-cupon/index-cupon.component';
 import { CreateCuponComponent } from './components/cupon/create-cupon/create-cupon.component';
 import { EditCuponComponent } from './components/cupon/edit-cupon/edit-cupon.component';
+import { EgresoCreateComponent } from './components/egresos/egreso-create/egreso-create.component';
+import { EgresoDetallesComponent } from './components/egresos/egreso-detalles/egreso-detalles.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +75,8 @@ import { EditCuponComponent } from './components/cupon/edit-cupon/edit-cupon.com
     IndexCuponComponent,
     CreateCuponComponent,
     EditCuponComponent,
+    EgresoCreateComponent,
+    EgresoDetallesComponent,
   ],
   imports: [
     BrowserModule,

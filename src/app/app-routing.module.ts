@@ -31,6 +31,8 @@ import { CreateAlmacenComponent } from './components/almacen/create-almacen/crea
 import { IndexCuponComponent } from './components/cupon/index-cupon/index-cupon.component';
 import { CreateCuponComponent } from './components/cupon/create-cupon/create-cupon.component';
 import { EditCuponComponent } from './components/cupon/edit-cupon/edit-cupon.component';
+import { EgresoCreateComponent } from './components/egresos/egreso-create/egreso-create.component';
+import { EgresoDetallesComponent } from './components/egresos/egreso-detalles/egreso-detalles.component';
 
 const routes: Routes = [
   {path:'',component:LoginComponent},
@@ -74,6 +76,9 @@ const routes: Routes = [
   {path:'cupon', component: IndexCuponComponent,canActivate:[AuthGuard]},
   {path:'cupon/create', component: CreateCuponComponent,canActivate:[AuthGuard]},
   {path:'cupon/edit/:id', component: EditCuponComponent,canActivate:[AuthGuard]},
+
+  {path :'egresos/create', component:EgresoCreateComponent,canActivate:[AuthGuard]},
+  {path:'egresos/detalles/:id', component:EgresoDetallesComponent,canActivate:[AuthGuard]},
 
 
 ];

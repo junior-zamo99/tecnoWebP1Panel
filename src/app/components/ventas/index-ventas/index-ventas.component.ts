@@ -4,6 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RolService } from '../../../services/rol.service';
 import { VentaService } from '../../../services/ventas.service';
 declare var $:any
+import * as fs from 'file-saver';
+import { Workbook } from 'exceljs';
+declare var toastr: any
 declare var moment:any
 @Component({
   selector: 'app-index-ventas',
@@ -24,6 +27,7 @@ export class IndexVentasComponent {
     public rolId =''
     public rol:any;
     public funcionalidades:any=[]
+    public detallesExcel:Array<any>=[]
 
 
     constructor(
@@ -92,8 +96,51 @@ filtroVentas(){
   this.ventasService.getVentas(inicio,fin,this.token).subscribe(response=>{
     console.log(response)
     this.ventas=response.data
+
+    this.ventas.forEach((venta,idx) => {
+              
+        this.detallesExcel.push({
+          cliente:venta.cliente.email,
+          total:venta.total
+
+        })
+      })
+      console.log(this.detallesExcel)
     this.loadData=false
   })
 }
+
+
+ descargarExcel(){
+    let workbook = new Workbook();
+let worksheet = workbook.addWorksheet("Unidades");
+
+worksheet.addRow(undefined);
+for (let x1 of this.detallesExcel){
+  let x2=Object.keys(x1);
+
+  let temp=[]
+  for(let y of x2){
+    temp.push(x1[y])
+  }
+  worksheet.addRow(temp)
+}
+
+//GENERAR EXCEL
+let fname='ventas'
+
+worksheet.columns = [
+  { header: 'Cliente', key: 'col1', width: 35},
+  { header: 'Total', key: 'col2', width: 20 },
+
+]as any;
+
+workbook.xlsx.writeBuffer().then((data:any) => {
+  let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+  fs.saveAs(blob, fname+'.xlsx');
+});
+  }
+
+
 
 }
