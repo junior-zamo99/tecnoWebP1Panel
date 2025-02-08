@@ -51,16 +51,16 @@
                         <!--begin::Card header-->
                         <div class="card-header py-7">
                             <h3 class="card-title align-items-start flex-column">
-                                <span class="card-label  text-gray-800 fw-700">Ingresos</span>
+                                <span class="card-label  text-gray-800 fw-700">Ajuste de Inventario</span>
                                 <span class="text-gray-400 mt-1 fw-semibold fs-6 d-none d-sm-block">
-                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure, laboriosam.
+                                 
                                 </span>
                             </h3>
                             <!--end::Title-->
                     
                             <!--begin::Create campaign button-->
-                            <div *ngIf="tienePermiso('crear ingreso')"   class="card-toolbar d-none d-sm-block">
-                                <div class="btn-group">
+                            <div   class="card-toolbar d-none d-sm-block">
+                                <div *ngIf="tienePermiso('crear ingreso')" class="btn-group">
                                     <a [routerLink]="['/ingresos/create']" class="btn btn-dark" style="margin-right: 2rem !important;" >
                                         <span class="svg-icon svg-icon-3"><svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path opacity="0.3" d="M8.9 21L7.19999 22.6999C6.79999 23.0999 6.2 23.0999 5.8 22.6999L4.1 21H8.9ZM4 16.0999L2.3 17.8C1.9 18.2 1.9 18.7999 2.3 19.1999L4 20.9V16.0999ZM19.3 9.1999L15.8 5.6999C15.4 5.2999 14.8 5.2999 14.4 5.6999L9 11.0999V21L19.3 10.6999C19.7 10.2999 19.7 9.5999 19.3 9.1999Z" fill="currentColor"/>
@@ -72,7 +72,7 @@
 
                                 </div>
 
-                                <div class="btn-group">
+                                <div *ngIf="tienePermiso('crear egreso')" class="btn-group">
                                     <a [routerLink]="['/egresos/create']" class="btn btn-dark"  >
                                         <span class="svg-icon svg-icon-3"><svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path opacity="0.3" d="M8.9 21L7.19999 22.6999C6.79999 23.0999 6.2 23.0999 5.8 22.6999L4.1 21H8.9ZM4 16.0999L2.3 17.8C1.9 18.2 1.9 18.7999 2.3 19.1999L4 20.9V16.0999ZM19.3 9.1999L15.8 5.6999C15.4 5.2999 14.8 5.2999 14.4 5.6999L9 11.0999V21L19.3 10.6999C19.7 10.2999 19.7 9.5999 19.3 9.1999Z" fill="currentColor"/>

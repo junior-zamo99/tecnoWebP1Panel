@@ -4,6 +4,7 @@ import { GLOBAL } from '../../../services/GLOBAL';
 import { IngresoService } from '../../../services/ingreso.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { InventarioService } from '../../../services/inventario.service';
+import { Server } from 'node:http';
 
 declare var $:any
 declare var toastr:any;
@@ -162,7 +163,7 @@ export class CreateIngresosComponent {
   guardar(){
     this.ingreso.detalles=this.detalles
     this.ingreso.total=this.total
-     if(!this.ingreso.almacen){
+    if(!this.ingreso.almacen){
       toastr.error('Debe seleccionar un almacen')
     }else if(this.ingreso.detalles.length==0){
       toastr.error('Debe agregar al menos un detalle')
