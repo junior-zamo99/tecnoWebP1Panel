@@ -105,6 +105,14 @@ export class CreateIngresosComponent {
 
   }
 
+  seleccionarTipo(){
+    if(this.ingreso.tipo=='Compra'){
+      this.ingreso.tipo='Compra'
+    }else{
+      this.ingreso.tipo='Devolucion'
+    }
+  }
+
   seleccionVariacion(){
     let variacion=this.variacionesProducto.find(variacion=>variacion._id==this.detalleIngreso.producto_variedad)
     this.detalleIngreso.talla=variacion.talla
@@ -154,9 +162,7 @@ export class CreateIngresosComponent {
   guardar(){
     this.ingreso.detalles=this.detalles
     this.ingreso.total=this.total
-    if(!this.ingreso.proveedor){
-      toastr.error('Debe seleccionar un proveedor')
-    }else if(!this.ingreso.almacen){
+     if(!this.ingreso.almacen){
       toastr.error('Debe seleccionar un almacen')
     }else if(this.ingreso.detalles.length==0){
       toastr.error('Debe agregar al menos un detalle')

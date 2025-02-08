@@ -11,34 +11,23 @@ export class EstadisticaService {
 
     constructor(private _http: HttpClient) { }
 
-    /**
-     * Obtiene el total de ventas en un rango de fechas.
-     */
-    getTotalVentas(filtro: string, token: string): Observable<any> {
-        const headers = new HttpHeaders({ 'Content-type': 'application/json', 'Autorization': token })
-        return this._http.get(`${this.url}/estadisticas/total-ventas?filtro=${filtro}`, { headers });
+    getTotalVentas(filtro: string, agruparPorMes: boolean, token: any): Observable<any> {
+        const headers = new HttpHeaders({ 'Content-type': 'application/json', 'Autorization': token });
+        return this._http.get(`${this.url}/estadisticas/total-ventas?filtro=${filtro}&agruparPorMes=${agruparPorMes}`, { headers });
     }
 
-    /**
-     * Obtiene la cantidad total de ventas realizadas en un rango de fechas.
-     */
-    getCantidadVentas(filtro: string, token: string): Observable<any> {
-        const headers = new HttpHeaders({ 'Content-type': 'application/json', 'Autorization': token })
+    getCantidadVentas(filtro: string, token: any): Observable<any> {
+        const headers = new HttpHeaders({ 'Content-type': 'application/json', 'Autorization': token });
         return this._http.get(`${this.url}/estadisticas/cantidad-ventas?filtro=${filtro}`, { headers });
     }
 
-    /**
-     * Obtiene los ingresos generados en un periodo de tiempo (día, semana, mes, año).
-     */
-    getIngresosGenerados(filtro: string, token: string): Observable<any> {
-        const headers = new HttpHeaders({ 'Content-type': 'application/json', 'Autorization': token })
-        return this._http.get(`${this.url}/estadisticas/ingresos?periodo=${filtro}`, { headers });
+    getIngresosGenerados(filtro: string, token: any): Observable<any> {
+        const headers = new HttpHeaders({ 'Content-type': 'application/json', 'Autorization': token });
+        return this._http.get(`${this.url}/estadisticas/ingresos?filtro=${filtro}`, { headers });
     }
-    /**
-     * Obtiene los productos más vendidos en un rango de fechas.
-     */
-    getProductosMasVendidos(limit: number, token: string): Observable<any> {
-        const headers = new HttpHeaders({ 'Content-type': 'application/json', 'Autorization': token })
+
+    getProductosMasVendidos(limit: number, token: any): Observable<any> {
+        const headers = new HttpHeaders({ 'Content-type': 'application/json', 'Autorization': token });
         return this._http.get(`${this.url}/estadisticas/productos-mas-vendidos?limit=${limit}`, { headers });
     }
 }

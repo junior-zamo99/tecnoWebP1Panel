@@ -47,6 +47,7 @@
         </div>
 
 
+
         <div class="menu-item" *ngIf="tienePermiso('gestionar usuarios')">
           <a class="menu-link" [routerLink]="['/colaborador']" routerLinkActive="active">
             <span class="menu-icon">
@@ -132,7 +133,7 @@
               </span>
               <!--end::Svg Icon-->
             </span>
-            <span class="menu-title">Ingresos</span>
+            <span class="menu-title">Ajuste de Inventario</span>
           </a>
         </div>
         <div class="menu-item" *ngIf="tienePermiso('gestionar inventario')">

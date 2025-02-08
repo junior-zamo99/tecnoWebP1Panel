@@ -4,6 +4,8 @@
     <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
       <app-topbar></app-topbar>
       <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+
+        <!-- Barra de herramientas -->
         <div class="toolbar" id="kt_toolbar">
           <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
             <div class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
@@ -14,60 +16,61 @@
               </h1>
             </div>
             <div class="d-flex align-items-center py-1">
-              <a href="#" class="btn btn-sm btn-primary">Create</a>
+              <a href="#" class="btn btn-sm btn-primary">Crear</a>
             </div>
           </div>
         </div>
 
+        <!-- Contenido principal -->
         <div class="post d-flex flex-column-fluid" id="kt_post">
           <div id="kt_content_container" class="container-xxl">
-            <div class="row gy-4"> <!-- Agregado gy-4 para dar espacio vertical -->
+            <div class="row gy-4"> <!-- Espaciado vertical entre tarjetas -->
 
               <!-- Total Ventas -->
               <div class="col-md-6">
-                <div class="card shadow p-4"> <!-- Agregado padding p-4 -->
+                <div class="card shadow-sm p-4 h-100">
                   <div class="card-body">
                     <h5 class="card-title text-center">Total Ventas</h5>
-                    <canvas id="totalVentasChart"></canvas>
+                    <canvas id="totalVentasChart" style="height: 300px;"></canvas>
                   </div>
                 </div>
               </div>
 
               <!-- Ingresos Generados -->
               <div class="col-md-6">
-                <div class="card shadow p-4">
+                <div class="card shadow-sm p-4 h-100">
                   <div class="card-body">
                     <h5 class="card-title text-center">Ingresos Generados</h5>
-                    <canvas id="ingresosGeneradosChart"></canvas>
+                    <canvas id="ingresosGeneradosChart" style="height: 300px;"></canvas>
                   </div>
                 </div>
               </div>
 
               <!-- Cantidad de Ventas -->
               <div class="col-md-6">
-                <div class="card shadow p-4">
+                <div class="card shadow-sm p-4 h-100">
                   <div class="card-body">
                     <h5 class="card-title text-center">Cantidad de Ventas</h5>
-                    <canvas id="cantidadVentasChart"></canvas>
+                    <canvas id="cantidadVentasChart" style="height: 300px;"></canvas>
                   </div>
                 </div>
               </div>
 
               <!-- Productos Más Vendidos -->
               <div class="col-md-6">
-                <div class="card shadow p-4">
+                <div class="card shadow-sm p-4 h-100">
                   <div class="card-body">
                     <h5 class="card-title text-center">Productos Más Vendidos</h5>
-                    <canvas id="productosMasVendidosChart"></canvas>
+                    <canvas id="productosMasVendidosChart" style="height: 300px;"></canvas>
                   </div>
                 </div>
               </div>
 
-            </div> <!-- Cierra row -->
-          </div> <!-- Cierra container -->
-        </div> <!-- Cierra post -->
+            </div> <!-- Fin de fila -->
+          </div> <!-- Fin de contenedor -->
+        </div> <!-- Fin de post -->
 
-      </div> <!-- Cierra content -->
-    </div> <!-- Cierra wrapper -->
-  </div> <!-- Cierra page -->
+      </div> <!-- Fin de content -->
+    </div> <!-- Fin de wrapper -->
+  </div> <!-- Fin de page -->
 </div>
