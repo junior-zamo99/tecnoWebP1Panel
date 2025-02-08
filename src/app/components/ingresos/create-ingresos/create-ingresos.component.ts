@@ -4,9 +4,10 @@ import { GLOBAL } from '../../../services/GLOBAL';
 import { IngresoService } from '../../../services/ingreso.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { InventarioService } from '../../../services/inventario.service';
+import { Server } from 'node:http';
 
-declare var $:any
-declare var toastr:any;
+declare var $: any
+declare var toastr: any;
 @Component({
   selector: 'app-create-ingresos',
   templateUrl: './create-ingresos.component.html',
@@ -14,179 +15,178 @@ declare var toastr:any;
 })
 export class CreateIngresosComponent {
 
-  public filtroProducto=[]
-  public token=localStorage.getItem('token')
-  public productos:Array<any>=[]
-  public url= GLOBAL.url
-  public productoSeleccionado:any={}
-  public nombreProducto=''
-  public variacionesProducto:Array<any>=[]
-  public proveedores:Array<any>=[]
-  public almacenes:Array<any> =[] 
-  public ingreso:any={
-    proveedor:'',
-    almacen:'',
-    tipo:''
+  public filtroProducto = []
+  public token = localStorage.getItem('token')
+  public productos: Array<any> = []
+  public url = GLOBAL.url
+  public productoSeleccionado: any = {}
+  public nombreProducto = ''
+  public variacionesProducto: Array<any> = []
+  public proveedores: Array<any> = []
+  public almacenes: Array<any> = []
+  public ingreso: any = {
+    proveedor: '',
+    almacen: '',
+    tipo: ''
   }
 
-  public detalleIngreso:any={
-    producto_variedad:'',  
+  public detalleIngreso: any = {
+    producto_variedad: '',
   }
 
-  public detalles:Array<any>=[]
-  public total=0
+  public detalles: Array<any> = []
+  public total = 0
   constructor(
-    private productoService:ProductoService,
-    private ingresoService:IngresoService,
-    private inventarioService:InventarioService,
+    private productoService: ProductoService,
+    private ingresoService: IngresoService,
+    private inventarioService: InventarioService,
     private router: Router
   ) { }
 
-  ngOnInit(){ 
+  ngOnInit() {
     this.initProveedor()
     this.initAlmacen()
   }
 
 
-  initProveedor(){
+  initProveedor() {
     this.inventarioService.getProveedores(this.token).subscribe(
-      response=>{
-        if(response.data != undefined){
-          this.proveedores=response.data
-        }else{
-          this.proveedores=[]
+      response => {
+        if (response.data != undefined) {
+          this.proveedores = response.data
+        } else {
+          this.proveedores = []
         }
       }
     )
   }
 
-  initAlmacen(){
+  initAlmacen() {
     this.inventarioService.getAlmacenes(this.token).subscribe(
-      response=>{
-        if(response.data != undefined){
-          this.almacenes=response.data
-        }else{
-          this.almacenes=[]
+      response => {
+        if (response.data != undefined) {
+          this.almacenes = response.data
+        } else {
+          this.almacenes = []
         }
       }
     )
   }
 
-  initProducto(){ 
-  this.productoService.buscarProducto(this.filtroProducto,this.token).subscribe(
-    response=>{
-      if(response.data != undefined){
-        this.productos=response.data
-      }else{
-        this.productos=[]
+  initProducto() {
+    this.productoService.buscarProducto(this.filtroProducto, this.token).subscribe(
+      response => {
+        if (response.data != undefined) {
+          this.productos = response.data
+        } else {
+          this.productos = []
+        }
       }
-    }
-  )
+    )
   }
 
-  seleccionarProducto(producto:any){
-    this.productoSeleccionado=producto
-    this.detalleIngreso.producto=producto._id
-    this.nombreProducto=producto.titulo
-    this.detalleIngreso.productoTitulo=producto.titulo
-    this.productoService.getVariacionesProducto(producto._id,this.token).subscribe(
-      response=>{
-        if(response.data != undefined){
+  seleccionarProducto(producto: any) {
+    this.productoSeleccionado = producto
+    this.detalleIngreso.producto = producto._id
+    this.nombreProducto = producto.titulo
+    this.detalleIngreso.productoTitulo = producto.titulo
+    this.productoService.getVariacionesProducto(producto._id, this.token).subscribe(
+      response => {
+        if (response.data != undefined) {
           console.log(response.data)
-          this.variacionesProducto=response.data
-        
+          this.variacionesProducto = response.data
+
           $('#modalProducto').modal('hide')
-        }else{
-          this.variacionesProducto=[]
+        } else {
+          this.variacionesProducto = []
         }
       }
     )
-    
+
 
   }
 
-  seleccionarTipo(){
-    if(this.ingreso.tipo=='Compra'){
-      this.ingreso.tipo='Compra'
-    }else{
-      this.ingreso.tipo='Devolucion'
+  seleccionarTipo() {
+    if (this.ingreso.tipo == 'Compra') {
+      this.ingreso.tipo = 'Compra'
+    } else {
+      this.ingreso.tipo = 'Devolucion'
     }
   }
 
-  seleccionVariacion(){
-    let variacion=this.variacionesProducto.find(variacion=>variacion._id==this.detalleIngreso.producto_variedad)
-    this.detalleIngreso.talla=variacion.talla
-    this.detalleIngreso.color=variacion.color
+  seleccionVariacion() {
+    let variacion = this.variacionesProducto.find(variacion => variacion._id == this.detalleIngreso.producto_variedad)
+    this.detalleIngreso.talla = variacion.talla
+    this.detalleIngreso.color = variacion.color
     console.log(this.detalleIngreso)
   }
 
-  agregarDetalle(){
-    if(!this.detalleIngreso.producto){
+  agregarDetalle() {
+    if (!this.detalleIngreso.producto) {
       toastr.error('Debe seleccionar un producto')
-    }else if(!this.detalleIngreso.cantidad){
+    } else if (!this.detalleIngreso.cantidad) {
       toastr.error('Debe ingresar la cantidad')
-    }else if(!this.detalleIngreso.precioUnidad){
+    } else if (!this.detalleIngreso.precioUnidad) {
       toastr.error('Debe ingresar el precio')
-    }else if(!this.detalleIngreso.producto_variedad){
+    } else if (!this.detalleIngreso.producto_variedad) {
       toastr.error('Debe seleccionar una variedad')
-    }else if(this.detalleIngreso.cantidad<=0){
+    } else if (this.detalleIngreso.cantidad <= 0) {
       toastr.error('La cantidad debe ser mayor a 0')
-    }else if(this.detalleIngreso.precioUnidad<=0){
+    } else if (this.detalleIngreso.precioUnidad <= 0) {
       toastr.error('El precio debe ser mayor a 0')
-    }else{
+    } else {
       this.detalles.push(this.detalleIngreso)
-      this.detalleIngreso={}
-      this.productoSeleccionado={}
-      this.nombreProducto=''
-      this.variacionesProducto=[]
+      this.detalleIngreso = {}
+      this.productoSeleccionado = {}
+      this.nombreProducto = ''
+      this.variacionesProducto = []
       console.log(this.detalles)
       this.calcularTotal()
     }
   }
 
 
-  quitarDetalle(index:any){
-    this.detalles.splice(index,1)
+  quitarDetalle(index: any) {
+    this.detalles.splice(index, 1)
     this.calcularTotal()
   }
 
 
 
-  calcularTotal(){
-    this.total=0
-    this.detalles.forEach(detalle=>{
-      this.total+=detalle.cantidad*detalle.precioUnidad
+  calcularTotal() {
+    this.total = 0
+    this.detalles.forEach(detalle => {
+      this.total += detalle.cantidad * detalle.precioUnidad
     })
   }
 
-  guardar(){
-    this.ingreso.detalles=this.detalles
-    this.ingreso.total=this.total
-     if(!this.ingreso.almacen){
+  guardar() {
+    this.ingreso.detalles = this.detalles
+    this.ingreso.total = this.total
+    if (!this.ingreso.almacen) {
       toastr.error('Debe seleccionar un almacen')
-    }else if(this.ingreso.detalles.length==0){
+    } else if (this.ingreso.detalles.length == 0) {
       toastr.error('Debe agregar al menos un detalle')
-    }else if(!this.ingreso.tipo){
+    } else if (!this.ingreso.tipo) {
       toastr.error('Debe seleccionar un tipo')
-    }else{
-      this.ingresoService.createIngreso(this.ingreso,this.token).subscribe(
-        response=>{
-         console.log(response)
-           if(response.data !=undefined)
-            {
-              toastr.success('Ingreso registrado correctamente')
-              this.router.navigate(['/ingresos'])
-              this.ingreso={}
-              this.detalleIngreso={}
-              this.detalles=[]
-              this.total=0
-            }else{
-              toastr.error('Error al registrar el ingreso')
-            }
-          
+    } else {
+      this.ingresoService.createIngreso(this.ingreso, this.token).subscribe(
+        response => {
+          console.log(response)
+          if (response.data != undefined) {
+            toastr.success('Ingreso registrado correctamente')
+            this.router.navigate(['/ingresos'])
+            this.ingreso = {}
+            this.detalleIngreso = {}
+            this.detalles = []
+            this.total = 0
+          } else {
+            toastr.error('Error al registrar el ingreso')
+          }
+
         }
       )
     }
-   
+
   }
 }
