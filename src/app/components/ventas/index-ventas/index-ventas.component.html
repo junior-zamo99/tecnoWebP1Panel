@@ -114,6 +114,19 @@
                                                     <span class="badge " [ngClass]="{'badge-primary': item.estado=='Procesado', 'badge-danger':item.estado=='Cancelado', 'badge-success':item.estado=='Confirmado' }" style="height: 20px !important;">{{item.estado}}</span>
                                                    
                                                 </div>
+
+                                                <div class="d-flex flex-wrap fw-semibold fs-6  pe-2">
+                                                  <a  class="d-flex align-items-center text-gray-500  me-5 mb-2">
+                                                  Transaccion Tigo: {{item.detallePago?.transaccionTigo || 'No tiene' }}
+                                                  </a>
+                                                 
+                                                </div>
+                                                <div class="d-flex flex-wrap fw-semibold fs-6  pe-2">
+                                                  <a  class="d-flex align-items-center text-gray-500  me-5 mb-2">
+                                                  Estado de Transaccion: {{item.detallePago?.messageEstado || 'No tiene' }}
+                                                  </a>
+                                                 
+                                                </div>
     
                                                 <ul *ngIf="tienePermiso('detalles de venta')" style="list-style: none; padding-left: 0px; margin-bottom: 0px;  ">
                                                     <li>
